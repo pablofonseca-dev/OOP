@@ -1,4 +1,4 @@
-##JavaFX Application LifeCycle
+# JavaFX Application LifeCycle
 We need to implement start method. Start method can be used to display the application queue. However, 
 there is more to the life cycle of JavaFX Application. There are several stages in addition to start 
 method. When we run a JavaFX Application JavaFX run-time calls init() method defined in application class. 
