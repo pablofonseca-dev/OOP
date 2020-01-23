@@ -56,7 +56,7 @@ the characters typed into it.
 2. **setValue()** to selects a value 
 3. **getValue()** returns selected value
 
-###Variations 
+### Variations 
 * ChoiceBox: ChoiceBox object instantiation is pretty strightforward. Created with the 
 default constructor. Add list of values as strings, and add it to any layout as you
 work for any other control. If you want to set the value programmatically, call 
@@ -101,7 +101,7 @@ It can contain other nodes. Also, user interact with
 
 * Select rows, cells, reorder, sort and many more. 
 
-##Accessing from code
+## Accessing from code
 
 1. **setEditable()** to change read only status 
 2. **getColumns().addAll()** to add columns 
