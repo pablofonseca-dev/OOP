@@ -1,0 +1,33 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<!-- By default fxml root element is a Grid Pane Layout -->
+<!--<GridPane fx:controller="sample.Controller"-->
+<!--          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">-->
+<!--</GridPane>-->
+
+<!-- Custom Imports -->
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<!--
+    We can use the attributes of the element tags if we want to set some properties.
+    Spacing attribute at just the spacing between the elements.
+-->
+<HBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="30"
+      xmlns="http://javafx.com/javafx" fx:controller="sample.Controller">
+    <children>
+        <Label text="User Name"/>
+        <TextField fx:id="textField"/>
+        <Button text="Connect"/>
+        <GridPane>
+            <children>
+                <Label text="${textField.text}" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+                <Button text="Down" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Button text="Further Down" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            </children>
+        </GridPane>
+    </children>
+</HBox>
