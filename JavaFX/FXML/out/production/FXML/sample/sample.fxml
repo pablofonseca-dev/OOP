@@ -30,6 +30,8 @@
                 <Button text="Down" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <RadioButton mnemonicParsing="false" text="On/Off" GridPane.rowIndex="3" />
             </children>
+         <!-- You will see a lot more text like constraint, but for now, you can ignore those -->
+
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
