@@ -1,4 +1,4 @@
-#Las matrices y los arreglos son similares
+# Las matrices y los arreglos son similares
 
 * Tienen un tamaño fijo
 * Almacenan más de un valor
@@ -13,7 +13,7 @@ Una matriz es un arreglo de arreglos, que tiene filas y columnas.
 
 Para recorrer una matriz se recorre de cada fila cada columna.
 
-** Existen 5 Formas básicas para recorrer una matriz: **
+**Existen 5 Formas básicas para recorrer una matriz:**
 
 1. Recorrerla completamente. 
 2. Recorrer solo una fila específica. 
