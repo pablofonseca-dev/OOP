@@ -13,6 +13,12 @@ public class ApplicationStart extends Application {
     whatever code is inside.
     This might be useful for loading pictures or loading assets and resources.
      */
+
+    /*
+        A Stage is basically a window.
+        Only one scene can be displayed at a time on a stage.
+
+     */
     @Override
     public void init() throws Exception{
         System.out.println("Before");
@@ -95,7 +101,6 @@ public class ApplicationStart extends Application {
         * */
         newWindow.initStyle(StageStyle.UNIFIED);
         secondStage.show();
-
         newWindow.show();
     }
 
