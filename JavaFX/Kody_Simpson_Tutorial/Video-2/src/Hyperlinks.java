@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.css.Stylesheet;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ public class Hyperlinks extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         stage.setTitle("Episode 6 - Hyperlinks");
         stage.setWidth(400);
         stage.setHeight(500);
@@ -33,7 +35,7 @@ public class Hyperlinks extends Application {
 
         parentNode.getChildren().addAll(hyperlink, label);
         Scene scene = new Scene(parentNode);
-
+        scene.getStylesheets().add("./Stylesheets/CSS.css");
         stage.setScene(scene);
         stage.show();
 
