@@ -1,4 +1,6 @@
 //Import modules
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 
 /**
@@ -8,7 +10,7 @@ import java.io.*;
  * 3. If the student doesn't exist the program add it to the queue.
  * 4. Request a student name to enter its score.
  * 5. Prints all data: The student name and the score.
- * @author Pablo Fonseca Moncada.
+ * @author Pablo Fonseca.
  */
 public class Main {
     public static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -18,12 +20,19 @@ public class Main {
     public static double[] student_scores;
 
     public static int queues_size = 0;
+
+    /**
+     * Program Main Stage
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException{
         program_start();
     }
 
     /**
      * Starts the program.
+     * @throws IOException
      */
     public static void program_start() throws IOException{
         int user_selection;
@@ -68,6 +77,7 @@ public class Main {
      * Call different routines and specific processes depending
      * on the value sent by the user
      * @param user_selection: Gets the user selection depending of the main method number.
+     * @throws IOException
      */
     public static void function_caller(int user_selection) throws IOException{
         switch(user_selection) {
@@ -91,47 +101,58 @@ public class Main {
 
     /**
      * Initialize the queue structures with the same size.
+     * @throws IOException
      */
 
     public static void initialize_program() throws IOException{
 
         boolean validation_flow = true;
         do{
-            out.println("Cantidad de estudiantes a registrar: ");
+            out.println("Cantidad de estudiantes a registrar");
+            out.print(">>> ");
             queues_size = Integer.parseInt(in.readLine());
             if(queues_size > 0){
                 student_names = new String[queues_size];
                 student_scores = new double[queues_size];
                 validation_flow = false; //Exit the loop
+            }else{
+                out.println("La cantidad de estudiantes debe ser mayor a cero.");
             }
         }while(validation_flow);
     }
 
     /**
      * Register a student in the student queue.
+     * @throws IOException
      *
      */
     public static void log_students() throws IOException{
-        //This do-while loop has the functionality to check if the user already exist.
+        /*
+        This for loop is necessary to add the specific amount of the students indicated. So, it runs
+        x times related with the students quantity.
+        Eg:
+        1. John
+        2. Steve
+         */
         boolean user_existence_validation;
-        user_existence_validation = true;
         for(int index = 0; index < queues_size; index++) {
+            //This do-while loop has the functionality to check if the user already exist.
             do {
                 String user_name = "";
                 out.println("Escriba el nombre del estudiante");
                 out.print(">>> ");
                 user_name = in.readLine();
-                user_existence_validation = student_existence(user_name); //This function validates if the student exist.
-                if (!user_existence_validation) { //If the user exist...
-                    out.println("El estudiante " + user_name + " ya se encuentra en la cola.");
-                    out.println("Vuelva a escribir la informacion.");
+                //This function validates if the student exist.
+                user_existence_validation = student_existence(user_name);
+                if (!user_existence_validation) {
+                    out.println("El nombre " + user_name + " ya se encuentra en la cola.");
+                    out.println("Vuelva a escribir la información.");
                     user_existence_validation = true;
                 } else {
-                    //If it is true, it passed the validation test
-                    user_existence_validation = false; //Breaks the loop.
+                    user_existence_validation = false;
                     //So, if it is true, assign the value to queue.
                     student_names[index] = user_name;
-                    out.println("Estudiante agregado");
+                    out.println("[Estudiante agregado]");
                 }
             } while (user_existence_validation);
         }
@@ -155,72 +176,144 @@ public class Main {
     }
 
     /**
-     * Log a score per a student name.
+     * Search the student index
+     * @param student_name
+     */
+    public static int search_student_index(String student_name){
+        int student_index;
+        for(int index = 0; index < queues_size; index++){
+            if(student_name.equals(student_names[index])){
+                student_index = index;
+                return student_index;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Log a score per student name.
+     * @throws IOException
      */
     public static void calc_student_score() throws IOException{
         int matrix[][] = new int[5][3];
         String student_name;
-        int student_index = 0;
-        out.println("Ingrese el nombre del estudiante");
-        out.print(">>> ");
-        student_name = in.readLine();
+        int student_index;
 
-        //Recorre el arreglo de estudiantes hasta que el nombre sea equivalente a una posicion
-        for(int index = 0; index < queues_size; index++){
-            if(student_names[index].equals(student_name)){
-                //Fila v
-                out.println("Ingrese la informacion del estudiante " + student_names[index]);
-                student_index = index;
-                for(int x = 0; x < matrix.length; x++){
-                    //[0][0]
-                    for(int y = 0; y < matrix[x].length; y++){
-                        //0,0; 1,0; 2,0
-                        if(y == 0){
-                            matrix[x][y] = y; //0 index
-                        }else{
-                            if(y == 1){
-                                int total_score;
-                                out.println("Ingrese los puntos totales de la pregunta " + (x + 1));
-                                total_score = Integer.parseInt(in.readLine());
-                                matrix[x][y]= total_score;
-                            }else{
-                                if(y == 2){
-                                    int gained_score;
-                                    out.println("Ingrese el puntaje obtenido de " + student_names[index]);
-                                    gained_score = Integer.parseInt(in.readLine());
-                                    matrix[x][y] = gained_score;
-                                }
-                            }
-                        }
+        boolean validation_flow = true;
+
+        do{
+            out.println("Ingrese el nombre del estudiante");
+            out.print(">>> ");
+            student_name = in.readLine();
+            student_index = search_student_index(student_name);
+            if(student_index != -1){
+                validation_flow = false;
+                //Inject student index in matrix.
+                inject_student_index(matrix, student_index);
+                //Inject question points in matrix.
+                int total_points = inject_question_points(matrix);
+                if(total_points != -1){
+                    //Inject student points in matrix
+                    int student_points = calc_student_points(total_points, matrix);
+                    if(student_points != -1){
+                        inject_student_points(student_points, student_index);
+                    }else{
+                        out.println("Los puntos del estudiante no son válidos.");
                     }
+                }else{
+                    out.println("Los puntos del examen no son válidos.");
                 }
-                break; //Exit to break
+            }else{
+                out.println("Estudiante no encontrado, inténtelo nuevamente.");
             }
-        }
-        log_student_scores(matrix, student_index);
-
+        }while(validation_flow);
     }
 
-    public static void log_student_scores(int[][] matrix, int student_index){
-        //Now just let follow the third column
-        int addition = 0;
-        for(int x = 0; x < matrix.length; x++){
-            for(int y = 0; y < matrix[x].length; y++){
-                if(y == 2){
-                    addition = addition + matrix[x][y];
-                }
-            }
+    public static void inject_student_index(int[][] matrix, int student_index){
+        for(int index = 0; index < matrix.length;  index++){
+            matrix[index][0] = student_index;
         }
-        student_scores[student_index] = addition;
-        out.println("Nota agregada y calculada de " + student_names[student_index]);
     }
+
+    /**
+     * Ask for the amount of points per question and then makes an addition.
+     * @param matrix
+     * @return Integer
+     * @throws IOException
+     */
+    public static int inject_question_points(int[][] matrix) throws IOException{
+        boolean validation_break = true;
+        int question_points;
+        do {
+            int validation = 0;
+            out.println("Ingrese los puntos de las 5 preguntas.");
+            for (int index = 0; index < matrix.length; index++) {
+                out.println("Pregunta " + (index + 1);
+                out.print("[" + (index + 1) + "]>>>");
+                question_points = Integer.parseInt(in.readLine());
+                validation = validation + question_points;
+            }
+            if(validation <= 100){
+                out.println("Se ha registrado una totalidad de " + validation + " puntos.");
+                validation_break = false;
+                return validation;
+            }else{
+                out.println("Los puntos deben sumar una cantidad menor o igual a 100.");
+            }
+        }while(validation_break);
+        return -1;
+    }
+
+    /**
+     * Calculates the obtained points per student and checks if the amount is valid.
+     * @param total_points
+     * @param matrix
+     * @return Integer
+     * @throws IOException
+     */
+    public static int calc_student_points(int total_points, int[][] matrix) throws IOException{
+        boolean validation_break = true;
+        do {
+            int question_points = 0;
+            int student_points = 0;
+            int subtraction_points = total_points;
+            out.println("Ingrese los puntos ganados en las 5 preguntas");
+            for (int index = 0; index < matrix.length; index++) {
+                out.println("Puntos disponibles: " + subtraction_points + "p.");
+                out.println("Pregunta " + (index + 1));
+                out.print("[" + (index + 1) + "]>>>");
+                question_points = Integer.parseInt(in.readLine());
+                subtraction_points = subtraction_points - question_points;
+                student_points = student_points + question_points;
+                validation_break = false;
+            }
+            if (subtraction_points < 0 || subtraction_points > question_points) {
+                out.println("Los puntos aplicados no son válidos");
+                out.println("Puntos disponibles a aplicar: " + total_points);
+                out.println("Inténtelo nuevamente");
+            }else{
+                return student_points;
+            }
+        }while(validation_break);
+        return -1;
+    }
+
+    /**
+     * Inject the total student points to the student scores queue.
+     * @param student_points
+     * @param student_index
+     */
+    public static void inject_student_points(int student_points, int student_index){
+        student_scores[student_index] = student_points;
+    }
+
 
     /**
      * List the student name and the score.
      */
     public static void list_all_data(){
         for(int index = 0; index < queues_size; index++){
-            out.println("El estudiante " + student_names[index] + " obtuvo un " + student_scores[index] + " en su " +
+            out.println("El estudiante " + student_names[index] + " obtuvo " + student_scores[index] + " en su " +
                     "nota.");
         }
     }
