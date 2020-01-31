@@ -9,10 +9,15 @@ import java.io.*;
  * 2. Check if the student exist in the student queue.
  * 3. If the student doesn't exist the program add it to the queue.
  * 4. Request a student name to enter its score.
- * 5. Prints all data: The student name and the score.
+ * 5. Prints all data: The students name and their score.
  * @author Pablo Fonseca.
+ * @version 1.0
  */
 public class Main {
+
+    /*
+     * I.O
+     */
     public static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     public static PrintStream out = System.out;
 
@@ -248,7 +253,7 @@ public class Main {
             int validation = 0;
             out.println("Ingrese los puntos de las 5 preguntas.");
             for (int index = 0; index < matrix.length; index++) {
-                out.println("Pregunta " + (index + 1);
+                out.println("Pregunta " + (index + 1));
                 out.print("[" + (index + 1) + "]>>>");
                 question_points = Integer.parseInt(in.readLine());
                 validation = validation + question_points;
