@@ -1,5 +1,4 @@
-import Topics.AnonymousClasses_LambdaExpressions;
-import Topics.SwitchingScenes;
+import Topics.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,8 +27,8 @@ public class ApplicationStartStage extends Application {
             primaryStage.setWidth(900);
         }
 
+        Confirmations confirmations = new Confirmations(primaryStage);
 
-        SwitchingScenes switchingScenes = new SwitchingScenes(primaryStage);
         primaryStage.show();
 
 
