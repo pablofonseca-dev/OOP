@@ -1,3 +1,5 @@
+package ApplicationBoot;
+
 import Topics.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -27,8 +29,9 @@ public class ApplicationStartStage extends Application {
             primaryStage.setWidth(900);
         }
 
-        Confirmations confirmations = new Confirmations(primaryStage);
-
+        //Confirmations confirmations = new Confirmations(primaryStage);
+        //EmbeddingLayouts embeddingLayouts = new EmbeddingLayouts(primaryStage);
+        GridPanes gridPanes = new GridPanes(primaryStage);
         primaryStage.show();
 
 
