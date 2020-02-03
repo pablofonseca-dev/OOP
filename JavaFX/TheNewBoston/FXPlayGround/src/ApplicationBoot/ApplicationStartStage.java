@@ -31,7 +31,8 @@ public class ApplicationStartStage extends Application {
 
         //Confirmations confirmations = new Confirmations(primaryStage);
         //EmbeddingLayouts embeddingLayouts = new EmbeddingLayouts(primaryStage);
-        GridPanes gridPanes = new GridPanes(primaryStage);
+        //GridPanes gridPanes = new GridPanes(primaryStage);
+        ExtractInputs  extractInputs = new ExtractInputs(primaryStage);
         primaryStage.show();
 
 

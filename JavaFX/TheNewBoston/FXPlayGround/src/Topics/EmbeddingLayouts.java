@@ -47,6 +47,7 @@ public class EmbeddingLayouts implements GetStages{
 
         closeStage.setOnAction(actionEvent -> {ApplicationStopStage.finishLifeCycle(stage);});
         root.setCenter(closeStage);
+
         Scene scene = new Scene(root);
         stage.setOnCloseRequest(windowEvent -> {
             windowEvent.consume();
