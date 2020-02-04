@@ -42,7 +42,7 @@ public class UI {
         out.println(main_menu);
 
         do {
-            if (counter == 3) {
+            if (counter == 2) {
                 out.println(main_menu);
                 counter = 0;
             }
@@ -103,7 +103,10 @@ public class UI {
                 uiPrintLaboratoriesQueue();
                 break;
             case 4:
-                uiPrintLaboratoriesQueueF();
+                uiAddStudent();
+                break;
+            case 5:
+                uiPrintStudentsQueue();
                 break;
             default:
                 out.println("Opción Inválida");
@@ -114,14 +117,17 @@ public class UI {
         boolean flow_validation = true;
         do {
             out.println("Ingrese la cantidad de laboratorios a registrar");
-            int size = Integer.parseInt(in.readLine());
-            if (size < 0) {
-                out.println("Valor inválido");
-                out.println("Vuelva a ingresar la cantidad");
+            int labsSize = Integer.parseInt(in.readLine());
+            out.println("Ingrese la cantidad de estudiantes a registrar");
+            int studentsSize = Integer.parseInt(in.readLine());
+            if (labsSize < 0 || studentsSize < 0) {
+                out.println("Valores inválido");
+                out.println("Vuelva a ingresar las cantidades");
                 flow_validation = true;
             } else {
-                LogicLayer.initializeLaboratoriesQueue(size);
-                out.println("Listo!");
+                LogicLayer.initializeLaboratoriesQueue(labsSize);
+                LogicLayer.initializeStudentsQueue(studentsSize);
+                out.println("Espacios agregados en memoria");
                 flow_validation = false;
             }
         }while(flow_validation);
@@ -144,19 +150,58 @@ public class UI {
             out.println("Capacidad");
             out.print(">>>");
             capacity = Integer.parseInt(in.readLine());
-
             out.println("Curso o Materia");
             out.print(">>>");
             course = in.readLine();
-            validation_flow = false;
-            String concatenatedData = concat(code, name, capacity, course);
-            boolean result = LogicLayer.logLaboratory(concatenatedData);
-            if(result){
-                out.println("Listo!");
+            if(code < 0){
+                out.println("El código del estudiante no es válido");
+                validation_flow = true;
             }else{
-                out.println("No se pudo completar la acción, laboratorios llenos");
+                validation_flow = false;
+                String concatenatedData = concat(code, name, capacity, course);
+                boolean result = LogicLayer.logLaboratory(concatenatedData);
+                if(result){
+                    out.println("Laboratorio agregado");
+                }else{
+                    out.println("No se pudo completar la acción, laboratorios llenos");
+                }
             }
         }while(validation_flow);
+    }
+
+    public static void uiAddStudent() throws IOException{
+        int code;
+        String career, name, lastName;
+        boolean validation_flow = true;
+        do {
+            out.println("Ingrese los datos del estudiante");
+            out.println("Identificación");
+            out.print(">>>");
+            code = Integer.parseInt(in.readLine());
+            out.println("Nombre");
+            out.print(">>>");
+            name = in.readLine();
+            out.println("Apellidos");
+            out.print(">>>");
+            lastName = in.readLine();
+            out.println("Carrera");
+            out.print(">>>");
+            career = in.readLine();
+            if(code < 0){
+                out.println("El código del estudiante no es válido");
+                validation_flow = true;
+            }else{
+                validation_flow = false;
+                String concatenatedData = concat(name, lastName, career, code);
+                boolean result = LogicLayer.logStudent(concatenatedData);
+                if(result){
+                    out.println("Estudiante agregado");
+                }else{
+                    out.println("No se pudo completar la acción, la memoria para los estudiantes está llena");
+                }
+            }
+        }while(validation_flow);
+
     }
 
     //Backup Method
@@ -170,19 +215,21 @@ public class UI {
         out.println(LogicLayer.getStringLab());
     }
 
+    public static void uiPrintStudentsQueue(){
+        String[] studentsQueue = LogicLayer.getStudentsQueue();
+        for(int index = 0; index < studentsQueue.length; index++){out.println(studentsQueue[index]);}
+    }
+
     //Concatenate information
     public static String concat(Object...args){
         String concatenatedData = "";
         for(int index = 0; index < args.length; index++)
         {
             concatenatedData += args[index];
-            if(index == args.length - 1){
+            if(index < args.length - 1){
                 concatenatedData += ",";
             }
         }
         return concatenatedData;
     }
-
-    //Concatenates data
-
 }
