@@ -1,12 +1,12 @@
-#Semana 3 Lunes 03 de Febrero. 
+# Semana 3 Lunes 03 de Febrero. 
 
-##Tarea: 
+## Tarea: 
 
 1. Relacionado con arreglos, debido a las Collections. 
 2. Listar y registrar laboratorios 
 3. Listar y registrar estudiantes 
 
-##Null, lidiar con los valores por referencia. 
+## Null, lidiar con los valores por referencia. 
 
 Como los datos son los que indican el valor de las aplicaciones, es muy importante que los datos no estén expuestos, 
 hablando de datos en general. 
@@ -20,7 +20,7 @@ Otra solución es ajustar en la capa lógica un arreglo de una manera efeciva y 
 
 Se creará un arreglo nuevo en una rutina en la CL. 
 
-##Proceso de abstracción
+## Proceso de abstracción
 
 Se toman los elementos del dominio de un problema y los extrae en forma de lista, para saber las características y el comportamiento que esos 
 elementos tiene. 
@@ -50,7 +50,7 @@ Si se realiza una lista de cada una de ellas se puede finalizar con un buen proc
 **El problema del paradigma estructurado es que es un paradigma tieso.**
 
 
-##Para agregar parámetros ilimitados
+## Para agregar parámetros ilimitados
  
 ```java
 
