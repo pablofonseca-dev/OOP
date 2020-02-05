@@ -2,6 +2,7 @@ package ApplicationBoot;
 
 import Topics.*;
 import javafx.application.Application;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class ApplicationStartStage extends Application {
@@ -28,11 +29,12 @@ public class ApplicationStartStage extends Application {
             primaryStage.setHeight(700);
             primaryStage.setWidth(900);
         }
-
         //Confirmations confirmations = new Confirmations(primaryStage);
         //EmbeddingLayouts embeddingLayouts = new EmbeddingLayouts(primaryStage);
         //GridPanes gridPanes = new GridPanes(primaryStage);
-        ExtractInputs  extractInputs = new ExtractInputs(primaryStage);
+        //ExtractInputs  extractInputs = new ExtractInputs(primaryStage);
+        //CheckBoxes checkBoxes = new CheckBoxes(primaryStage);
+        ChoiceBoxes choiceBoxes = new ChoiceBoxes(primaryStage);
         primaryStage.show();
 
 

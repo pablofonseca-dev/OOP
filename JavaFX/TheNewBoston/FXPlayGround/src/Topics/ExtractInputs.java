@@ -21,7 +21,13 @@ public class ExtractInputs implements GetStages{
         textField.setPromptText("Input your data here :)");
         JFXButton sendData = new JFXButton("Send!");
         sendData.setOnAction(actionEvent -> {
-            System.out.println(textField.getText());
+            //System.out.println(textField.getText());
+            boolean result = isInt(textField);
+            if(result){
+                AlertBox.display("Alert Box", "The value is an integer number");
+            }else{
+                AlertBox.display("Alert Box", "The value is just text, not a number");
+            }
         });
         root.getChildren().addAll(textField, sendData);
 
@@ -40,6 +46,15 @@ public class ExtractInputs implements GetStages{
         });
         stage.setTitle("This is the primary stage!");
         stage.setScene(scene);
+    }
+
+    public boolean isInt(TextField textField){
+        boolean isInteger = false;
+        try{
+            int numberValue = Integer.parseInt(textField.getText());
+            isInteger = true;
+        }catch(NumberFormatException exception){}
+        return isInteger;
     }
 
 }
