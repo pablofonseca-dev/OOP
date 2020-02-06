@@ -5,8 +5,12 @@
 public class LogicLayer {
     static String[] laboratoriesQueue;
     static String[] studentsQueue;
+    static String[] coursesQueue;
+
     static int laboratories_counter = 0;
     static int students_counter = 0;
+    static int courses_counter = 0;
+
 
     public static void initializeLaboratoriesQueue(int size){
         laboratoriesQueue = new String[size];
@@ -15,6 +19,8 @@ public class LogicLayer {
     public static void initializeStudentsQueue(int size){
         studentsQueue  = new String[size];
     }
+
+    public static void initializeCoursesQueue(int size) {coursesQueue = new String[size]; }
 
     public static boolean logLaboratory(String concatenatedData){
         if(laboratories_counter < laboratoriesQueue.length) {
@@ -36,6 +42,16 @@ public class LogicLayer {
         }
     }
 
+    public static boolean logCourse(String concatenatedData){
+        if(courses_counter < coursesQueue.length){
+            coursesQueue[courses_counter] = concatenatedData;
+            courses_counter++;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static String[] getLaboratoriesQueue(){
         String[] laboratoriesQueueBackup = new String[laboratoriesQueue.length];
         for(int index = 0; index < laboratoriesQueueBackup.length; index++){
@@ -50,6 +66,14 @@ public class LogicLayer {
             studentsQueueBackup[index] = studentsQueue[index];
         }
         return studentsQueueBackup;
+    }
+
+    public static String[] getCoursesQueue(){
+        String[] coursesQueueBackup = new String[coursesQueue.length];
+        for(int index = 0; index < coursesQueue.length; index++){
+            coursesQueueBackup[index] = coursesQueue[index];
+        }
+        return coursesQueueBackup;
     }
 
     public static String getStringLab(){

@@ -35,18 +35,18 @@ public class UI {
         int user_selection;
         boolean program_flow;
         program_flow = true;
-        final int EXIT = 7;
-        final int MENU = 6;
+        final int EXIT = 9;
+        final int MENU = 8;
         int counter = 0;
         String main_menu = get_main_menu();
         out.println(main_menu);
 
         do {
-            if (counter == 2) {
+            if (counter == 1) {
                 out.println(main_menu);
                 counter = 0;
             }
-            out.print(">>> ");
+            out.print("[Action]>>>");
             try {
                 user_selection = Integer.parseInt(in.readLine());
                 if (user_selection == EXIT) {
@@ -54,6 +54,9 @@ public class UI {
                 } else if (user_selection == MENU) {
                     out.println(main_menu);
                 } else {
+                    for(int index = 0; index < 100; index++){
+                        out.println("\n");
+                    }
                     function_caller(user_selection);
                     counter++;
                 }
@@ -75,11 +78,13 @@ public class UI {
         menu_formatter += "##############################################" + "\n";
         menu_formatter += "# [1] Inicializar el programa                #" + "\n";
         menu_formatter += "# [2] Registrar Laboratorio                  #" + "\n";
-        menu_formatter += "# [3] Listar Laboratorios                    #" + "\n";
+        menu_formatter += "# [3] Listar Laboratorios Registrados        #" + "\n";
         menu_formatter += "# [4] Registrar Estudiante                   #" + "\n";
-        menu_formatter += "# [5] Listar Estudiantes                     #" + "\n";
-        menu_formatter += "# [6] Imprimir Menu                          #" + "\n";
-        menu_formatter += "# [7] Salir                                  #" + "\n";
+        menu_formatter += "# [5] Listar Estudiantes Registrados         #" + "\n";
+        menu_formatter += "# [6] Registrar Curso                        #" + "\n";
+        menu_formatter += "# [7] Listar Cursos Registrados              #" + "\n";
+        menu_formatter += "# [8] Imprimir Menu                          #" + "\n";
+        menu_formatter += "# [9] Salir                                  #" + "\n";
         menu_formatter += "##############################################" + "\n";
         return menu_formatter;
     }
@@ -108,6 +113,12 @@ public class UI {
             case 5:
                 uiPrintStudentsQueue();
                 break;
+            case 6:
+                uiAddCourse();
+                break;
+            case 7:
+                uiPrintCourseQueue();
+                break;
             default:
                 out.println("Opción Inválida");
                 break;
@@ -120,13 +131,16 @@ public class UI {
             int labsSize = Integer.parseInt(in.readLine());
             out.println("Ingrese la cantidad de estudiantes a registrar");
             int studentsSize = Integer.parseInt(in.readLine());
-            if (labsSize < 0 || studentsSize < 0) {
+            out.println("Ingrese la cantidad de cursos a registrar");
+            int coursesSize = Integer.parseInt(in.readLine());
+            if (labsSize < 0 || studentsSize < 0 || coursesSize < 0) {
                 out.println("Valores inválido");
                 out.println("Vuelva a ingresar las cantidades");
                 flow_validation = true;
             } else {
                 LogicLayer.initializeLaboratoriesQueue(labsSize);
                 LogicLayer.initializeStudentsQueue(studentsSize);
+                LogicLayer.initializeCoursesQueue(coursesSize);
                 out.println("Espacios agregados en memoria");
                 flow_validation = false;
             }
@@ -204,6 +218,46 @@ public class UI {
 
     }
 
+    public static void uiAddCourse() throws IOException{
+        int code, credits;
+        String name, assignedTeacher;
+        boolean validationFlow = true;
+        do{
+            out.println("Ingrese los datos del curso");
+            out.println("Código");
+            out.print(">>>");
+            code = Integer.parseInt(in.readLine());
+            out.println("Nombre");
+            out.print(">>>");
+            name = in.readLine();
+            out.println("Créditos");
+            out.print(">>>");
+            credits = Integer.parseInt(in.readLine());
+            out.println("Profesor asignado");
+            out.print(">>>");
+            assignedTeacher = in.readLine();
+            if(code < 0 || credits < 0){
+                out.println("Uno o varios valores no son válidos");
+                if(code < 0){
+                    out.println("El código es menor a cero.");
+                }
+                if(credits < 0){
+                    out.println("Los créditos son menores a cero");
+                }
+                validationFlow = true;
+            }else{
+                validationFlow = false;
+                String concatenatedData = concat(code, name, credits, assignedTeacher);
+                boolean result = LogicLayer.logCourse(concatenatedData);
+                if(result){
+                    out.println("Curso agregado");
+                }else{
+                    out.println("No se pudo completar la acción, la memoria para los cursos está llena.");
+                }
+            }
+        }while(validationFlow);
+    }
+
     //Backup Method
     public static void uiPrintLaboratoriesQueue(){
         String[] laboratoriesQueue = LogicLayer.getLaboratoriesQueue();
@@ -218,6 +272,11 @@ public class UI {
     public static void uiPrintStudentsQueue(){
         String[] studentsQueue = LogicLayer.getStudentsQueue();
         for(int index = 0; index < studentsQueue.length; index++){out.println(studentsQueue[index]);}
+    }
+
+    public static void uiPrintCourseQueue(){
+        String[] coursesQueue = LogicLayer.getCoursesQueue();
+        for(int index = 0; index < coursesQueue.length; index++){out.println(coursesQueue[index]);}
     }
 
     //Concatenate information
