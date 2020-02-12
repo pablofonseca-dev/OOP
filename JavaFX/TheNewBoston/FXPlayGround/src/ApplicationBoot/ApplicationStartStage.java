@@ -34,7 +34,10 @@ public class ApplicationStartStage extends Application {
         //GridPanes gridPanes = new GridPanes(primaryStage);
         //ExtractInputs  extractInputs = new ExtractInputs(primaryStage);
         //CheckBoxes checkBoxes = new CheckBoxes(primaryStage);
-        ChoiceBoxes choiceBoxes = new ChoiceBoxes(primaryStage);
+        //ChoiceBoxes choiceBoxes = new ChoiceBoxes(primaryStage);
+        //ComboBoxes comboBoxes = new ComboBoxes(primaryStage);
+        //ListViews listViews = new ListViews(primaryStage);
+        TreeViews treeViews = new TreeViews(primaryStage);
         primaryStage.show();
 
 
