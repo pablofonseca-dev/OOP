@@ -2,12 +2,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class UI {
 
     /**
      * @author Pablo Fonseca.
-     * @version 2.0
+     * @version 3.0
      */
 
     /*
@@ -32,40 +35,57 @@ public class UI {
      * @throws IOException
      */
     public static void program_start() throws IOException {
-        int user_selection;
-        boolean program_flow;
-        program_flow = true;
-        final int EXIT = 9;
-        final int MENU = 8;
-        int counter = 0;
-        String main_menu = get_main_menu();
-        out.println(main_menu);
-
+        int userSelection;
+        boolean programFlow;
+        programFlow = true;
+        final int EXIT = -1;
+        final int MENU = 7;
+        final int START = 1;
+        boolean queuesInitialized = false;
+        String startMenu = getStartMenu();
+        out.println(startMenu);
         do {
-            if (counter == 1) {
-                out.println(main_menu);
-                counter = 0;
-            }
-            out.print("[Action]>>>");
-            try {
-                user_selection = Integer.parseInt(in.readLine());
-                if (user_selection == EXIT) {
-                    program_flow = false;
-                } else if (user_selection == MENU) {
-                    out.println(main_menu);
-                } else {
-                    for(int index = 0; index < 100; index++){
-                        out.println("\n");
+            if (!queuesInitialized) {
+                out.print("[A]>>>");
+                try {
+                    userSelection = Integer.parseInt(in.readLine());
+                    if (userSelection == EXIT) {
+                        programFlow = false;
+                    } else if (userSelection == START) {
+                        uiInitializeQueues();
+                        queuesInitialized = true;
                     }
-                    function_caller(user_selection);
-                    counter++;
+                } catch (NumberFormatException exception) {
+                    out.println("[La acción debe ser un número]");
                 }
-            } catch (NumberFormatException error) {
-                out.println("El dato debe ser un número");
-                out.println(main_menu);
+            } else {
+                out.println(getMainMenu());
+                out.print("[A]>>>");
+                try {
+                    userSelection = Integer.parseInt(in.readLine());
+                    if (userSelection == EXIT) {
+                        programFlow = false;
+                    } else if (userSelection == MENU) {
+                        out.println(getMainMenu());
+                    } else {
+                        uiFunctionCaller(userSelection);
+                    }
+                } catch (NumberFormatException exception) {
+                    out.println("[La acción debe ser un número]");
+                }
             }
-        } while (program_flow);
 
+        } while (programFlow);
+
+    }
+
+    public static String getStartMenu() {
+        String menu_formatter = "";
+        menu_formatter += "##############################################" + "\n";
+        menu_formatter += "# [1] Inicializar el programa                #" + "\n";
+        menu_formatter += "# [-1] Salir                                 #" + "\n";
+        menu_formatter += "##############################################" + "\n";
+        return menu_formatter;
     }
 
     /**
@@ -73,18 +93,17 @@ public class UI {
      *
      * @return a string which contains the menu.
      */
-    public static String get_main_menu() {
+    public static String getMainMenu() {
         String menu_formatter = "";
         menu_formatter += "##############################################" + "\n";
-        menu_formatter += "# [1] Inicializar el programa                #" + "\n";
-        menu_formatter += "# [2] Registrar Laboratorio                  #" + "\n";
-        menu_formatter += "# [3] Listar Laboratorios Registrados        #" + "\n";
-        menu_formatter += "# [4] Registrar Estudiante                   #" + "\n";
-        menu_formatter += "# [5] Listar Estudiantes Registrados         #" + "\n";
-        menu_formatter += "# [6] Registrar Curso                        #" + "\n";
-        menu_formatter += "# [7] Listar Cursos Registrados              #" + "\n";
-        menu_formatter += "# [8] Imprimir Menu                          #" + "\n";
-        menu_formatter += "# [9] Salir                                  #" + "\n";
+        menu_formatter += "# [1] Registrar Laboratorio                  #" + "\n";
+        menu_formatter += "# [2] Listar Laboratorios Registrados        #" + "\n";
+        menu_formatter += "# [3] Registrar Estudiante                   #" + "\n";
+        menu_formatter += "# [4] Listar Estudiantes Registrados         #" + "\n";
+        menu_formatter += "# [5] Registrar Curso                        #" + "\n";
+        menu_formatter += "# [6] Listar Cursos Registrados              #" + "\n";
+        menu_formatter += "# [7] Imprimir Menu                          #" + "\n";
+        menu_formatter += "# [-1] Salir                                 #" + "\n";
         menu_formatter += "##############################################" + "\n";
         return menu_formatter;
     }
@@ -96,199 +115,352 @@ public class UI {
      * @param user_selection: Gets the user selection depending of the main method number.
      * @throws IOException
      */
-    public static void function_caller(int user_selection) throws IOException {
+    public static void uiFunctionCaller(int user_selection) throws IOException {
         switch (user_selection) {
             case 1:
-                uiInitializeLaboratorieQueue();
-                break;
-            case 2:
                 uiAddLaboratory();
                 break;
-            case 3:
+            case 2:
                 uiPrintLaboratoriesQueue();
                 break;
-            case 4:
+            case 3:
                 uiAddStudent();
                 break;
-            case 5:
+            case 4:
                 uiPrintStudentsQueue();
                 break;
-            case 6:
+            case 5:
                 uiAddCourse();
                 break;
-            case 7:
+            case 6:
                 uiPrintCourseQueue();
                 break;
             default:
-                out.println("Opción Inválida");
+                out.println("[Opción Inválida]");
                 break;
         }
     }
-    public static void uiInitializeLaboratorieQueue() throws IOException{
+
+    public static void uiInitializeQueues() throws IOException {
         boolean flow_validation = true;
         do {
             out.println("Ingrese la cantidad de laboratorios a registrar");
+            out.print(">>> ");
             int labsSize = Integer.parseInt(in.readLine());
             out.println("Ingrese la cantidad de estudiantes a registrar");
+            out.print(">>> ");
             int studentsSize = Integer.parseInt(in.readLine());
             out.println("Ingrese la cantidad de cursos a registrar");
+            out.print(">>> ");
             int coursesSize = Integer.parseInt(in.readLine());
             if (labsSize < 0 || studentsSize < 0 || coursesSize < 0) {
-                out.println("Valores inválido");
-                out.println("Vuelva a ingresar las cantidades");
+                out.println("[El valor no puede ser negativo]");
+                out.println("[Vuelva a Ingresar las Cantidades]");
                 flow_validation = true;
             } else {
                 LogicLayer.initializeLaboratoriesQueue(labsSize);
                 LogicLayer.initializeStudentsQueue(studentsSize);
                 LogicLayer.initializeCoursesQueue(coursesSize);
-                out.println("Espacios agregados en memoria");
+                out.println("[Petición Aceptada]");
+                out.println("[Espacios Agregados en Memoria]");
                 flow_validation = false;
             }
-        }while(flow_validation);
+        } while (flow_validation);
     }
 
-    public static void uiAddLaboratory() throws IOException{
-        int code;
+    public static void uiAddLaboratory() throws IOException {
+        String code;
         String name;
         int capacity;
         String course;
-        boolean validation_flow = true;
-        do{
-            out.println("Ingrese los datos del laboratorio");
-            out.println("Código");
-            out.print(">>>");
-            code = Integer.parseInt(in.readLine());
-            out.println("Nombre");
-            out.print(">>>");
-            name = in.readLine();
-            out.println("Capacidad");
-            out.print(">>>");
-            capacity = Integer.parseInt(in.readLine());
-            out.println("Curso o Materia");
-            out.print(">>>");
-            course = in.readLine();
-            if(code < 0){
-                out.println("El código del estudiante no es válido");
-                validation_flow = true;
-            }else{
-                validation_flow = false;
-                String concatenatedData = concat(code, name, capacity, course);
-                boolean result = LogicLayer.logLaboratory(concatenatedData);
-                if(result){
-                    out.println("Laboratorio agregado");
-                }else{
-                    out.println("No se pudo completar la acción, laboratorios llenos");
-                }
-            }
-        }while(validation_flow);
+
+        out.println("Ingrese los datos del laboratorio");
+
+        out.println("Nombre");
+        out.print(">>> ");
+        name = in.readLine();
+        if (!(isNotAnEmptyString(name))) {
+            out.println("[Petición Denegada]");
+            out.println("[El nombre no puede estar vacío]");
+            return;
+        }
+        if (!(moreThanThreeChars(name))) {
+            out.println("[Petición Denegada]");
+            out.println("[El nombre debe tener al menos tres dígitos]");
+            return;
+        }
+
+        out.println("Capacidad");
+        out.println("Min: " + 10 + " " + "Max: " + 90);
+        out.print(">>> ");
+        capacity = Integer.parseInt(in.readLine());
+        if (!(validateCapacity(capacity))) {
+            out.println("[Petición Denegada]");
+            out.println("[La capacidad del laboratorio no cumple con su rango de capacidad]");
+        }
+
+        out.println("Curso o Materia");
+        out.print(">>> ");
+        course = in.readLine();
+        if (!(isNotAnEmptyString(course))) {
+            out.println("[Petición Denegada]");
+            out.println("[El curso no puede estar vacío]");
+            return;
+        }
+        if (!(moreThanThreeChars(course))) {
+            out.println("[Petición Denegada]");
+            out.println("[El curso debe tener al menos tres dígitos]");
+        }
+        if (!(isAlpha(course))) {
+            out.println("[Petición Denegada]");
+            out.println("[El curso no puede contener dígitos numéricos]");
+        }
+        boolean result = LogicLayer.logLaboratory(name, capacity, course);
+        if (result) {
+            out.println("[Petición Aceptada]");
+            out.println("[Laboratorio Agregado en Memoria]");
+        } else {
+            out.println("[Petición Denegada]");
+            out.println("[El espacio en memoria de los laboratorios está lleno]");
+        }
     }
 
-    public static void uiAddStudent() throws IOException{
-        int code;
-        String career, name, lastName;
-        boolean validation_flow = true;
-        do {
-            out.println("Ingrese los datos del estudiante");
-            out.println("Identificación");
-            out.print(">>>");
-            code = Integer.parseInt(in.readLine());
-            out.println("Nombre");
-            out.print(">>>");
-            name = in.readLine();
-            out.println("Apellidos");
-            out.print(">>>");
-            lastName = in.readLine();
-            out.println("Carrera");
-            out.print(">>>");
-            career = in.readLine();
-            if(code < 0){
-                out.println("El código del estudiante no es válido");
-                validation_flow = true;
-            }else{
-                validation_flow = false;
-                String concatenatedData = concat(name, lastName, career, code);
-                boolean result = LogicLayer.logStudent(concatenatedData);
-                if(result){
-                    out.println("Estudiante agregado");
-                }else{
-                    out.println("No se pudo completar la acción, la memoria para los estudiantes está llena");
-                }
-            }
-        }while(validation_flow);
+    public static void uiAddStudent() throws IOException {
+        String name, lastName, code;
+        boolean result, isScholarship, isACompleteLog;
+        result = false;
+        out.println("Ingrese los datos del estudiante");
 
+        out.println("Identificación Numérica");
+        out.print(">>> ");
+        code = in.readLine();
+        if(!isNotAnEmptyString(code)){
+            out.println("[La identificación no puede estar vacía]");
+        }
+        if(!moreThanThreeChars(code)){
+            out.println("[La identificación debe contener al menos tres dígitos");
+        }
+        if(!isDigit(code)){
+            out.println("[La identificación no puede contener letras]");
+            return;
+        }
+        out.println("Nombre");
+        out.print(">>> ");
+        name = in.readLine();
+        if(!isNotAnEmptyString(name)){
+            print("El nombre no puede estar vacío");
+            return;
+        }
+        if(!isAlpha(name)){
+            print("El nombre no puede contener valores numéricos");
+            return;
+        }
+        if(!moreThanThreeChars(name)){
+            print("El nombre debe contener al menos tres caracteres");
+            return;
+        }
+        out.println("Apellido");
+        out.print(">>> ");
+        lastName = in.readLine();
+        if(!isNotAnEmptyString(lastName)){
+            print("El apellido no puede estar vacío");
+            return;
+        }
+        if(!isAlpha(lastName)){
+            print("El apellido no puede contener valores numéricos");
+            return;
+        }
+        if(!moreThanThreeChars(lastName)){
+            print("El apellido debe contener al menos tres caracteres");
+            return;
+        }
+
+        out.println("¿El estudiante es becado? (S/N)");
+        out.print(">>> ");
+        isScholarship = convertToBooleanExpression(in.readLine());
+
+        out.println("¿Desea Agregar la Fecha de Nacimiento? (S/N)");
+        out.print(">>> ");
+        isACompleteLog = convertToBooleanExpression(in.readLine());
+
+        if (isACompleteLog) {
+            boolean validationFlow = true;
+            do {
+                int year, day, month;
+                out.println("Año de Nacimiento");
+                out.print(">>> ");
+                year = Integer.parseInt(in.readLine());
+
+                out.println("Mes de Nacimiento");
+                out.print(">>> ");
+                month = Integer.parseInt(in.readLine());
+
+                out.println("Día de Nacimiento");
+                out.print(">>> ");
+                day = Integer.parseInt(in.readLine());
+
+                LocalDate birthday = convertToLocalDate(year, month, day);
+
+                if (birthday != null) {
+                    out.println("[Fecha Convertida]");
+                    result = LogicLayer.logStudentComplete(name, lastName, code, isScholarship, birthday);
+                    validationFlow = false;
+                } else {
+                    out.println("[Formato Incorrecto]");
+                    out.println("[Vuelva a ingresar la fecha]");
+                }
+            } while (validationFlow);
+        } else {
+            result = LogicLayer.logStudent(name, lastName, code, isScholarship);
+            out.println("[Fecha Ignorada]");
+        }
+        if (result) {
+            out.println("[Petición Aceptada]");
+            out.println("[Estudiante Agregado en Memoria]");
+        } else {
+            out.println("[Petición Denegada]");
+            out.println("[El espacio en memoria de los estudiantes está lleno]");
+        }
     }
 
-    public static void uiAddCourse() throws IOException{
-        int code, credits;
-        String name, assignedTeacher;
+    public static void uiAddCourse() throws IOException {
+        int credits;
+        String name, code;
         boolean validationFlow = true;
-        do{
+        do {
             out.println("Ingrese los datos del curso");
+
             out.println("Código");
-            out.print(">>>");
-            code = Integer.parseInt(in.readLine());
+            out.print(">>> ");
+            code = in.readLine();
+
             out.println("Nombre");
-            out.print(">>>");
+            out.print(">>> ");
             name = in.readLine();
+
             out.println("Créditos");
-            out.print(">>>");
+            out.print(">>> ");
             credits = Integer.parseInt(in.readLine());
-            out.println("Profesor asignado");
-            out.print(">>>");
-            assignedTeacher = in.readLine();
-            if(code < 0 || credits < 0){
-                out.println("Uno o varios valores no son válidos");
-                if(code < 0){
-                    out.println("El código es menor a cero.");
-                }
-                if(credits < 0){
-                    out.println("Los créditos son menores a cero");
-                }
-                validationFlow = true;
-            }else{
+
+            boolean result = LogicLayer.logCourse(code, name, credits);
+            if (result) {
+                out.println("Curso agregado");
                 validationFlow = false;
-                String concatenatedData = concat(code, name, credits, assignedTeacher);
-                boolean result = LogicLayer.logCourse(concatenatedData);
-                if(result){
-                    out.println("Curso agregado");
-                }else{
-                    out.println("No se pudo completar la acción, la memoria para los cursos está llena.");
-                }
+            } else {
+                out.println("No se pudo completar la acción");
+                validationFlow = true;
             }
-        }while(validationFlow);
+        } while (validationFlow);
+    }
+
+    //Validation Methods
+    public static boolean isNotAnEmptyString(String stringInput) {
+        return !stringInput.equalsIgnoreCase("");
+    }
+
+    public static boolean moreThanThreeChars(String stringInput) {
+        return stringInput.length() >= 3;
+    }
+
+    public static boolean isDigit(String stringInput) {
+        int strSize = stringInput.length();
+        String[] strArray = new String[strSize];
+
+        for (int index = 0; index < strSize; index++) {
+            strArray[index] = String.valueOf(stringInput.charAt(index));
+        }
+
+        boolean validation = true;
+        for (String e : strArray) {
+            try {
+                int number = Integer.parseInt(e);
+            } catch (NumberFormatException exception) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isAlpha(String stringInput) {
+        int strSize = stringInput.length();
+        String[] strArray = new String[strSize];
+
+        for (int index = 0; index < strSize; index++) {
+            strArray[index] = String.valueOf(stringInput.charAt(index));
+        }
+
+        boolean validation = true;
+
+        for (String e : strArray) {
+            try {
+                int alpha = Integer.parseInt(e);
+                return false;
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return true;
+    }
+
+    public static LocalDate convertToLocalDate(int year, int month, int day) {
+        // format arguments
+        String dateString = year + " " + month + " " + day;
+        // create a formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy M d");
+        // create a LocalDate object
+        try {
+            LocalDate localDate = LocalDate.parse(dateString, formatter);
+            return localDate;
+        } catch (DateTimeParseException exception) {
+            return null;
+        }
+
+    }
+
+    public static boolean convertToBooleanExpression(String stringInput) {
+        if (stringInput.equalsIgnoreCase("S")) {
+            return true;
+        } else if (stringInput.equalsIgnoreCase("N")) {
+            return false;
+        }
+        out.println("Valor inválido, se ha indicado N por defecto.");
+        return false;
+    }
+
+    public static boolean validateCreditsAmount(int creditsInput) {
+        return creditsInput >= 5 && creditsInput <= 15;
+    }
+
+    public static boolean validateCapacity(int capacity) {
+        return capacity >= 10 && capacity <= 90;
     }
 
     //Backup Method
-    public static void uiPrintLaboratoriesQueue(){
-        String[] laboratoriesQueue = LogicLayer.getLaboratoriesQueue();
-        for(int index = 0; index < laboratoriesQueue.length; index++){out.println(laboratoriesQueue[index]);}
-    }
-
-    //String Formatter Method
-    public static void uiPrintLaboratoriesQueueF(){
-        out.println(LogicLayer.getStringLab());
-    }
-
-    public static void uiPrintStudentsQueue(){
-        String[] studentsQueue = LogicLayer.getStudentsQueue();
-        for(int index = 0; index < studentsQueue.length; index++){out.println(studentsQueue[index]);}
-    }
-
-    public static void uiPrintCourseQueue(){
-        String[] coursesQueue = LogicLayer.getCoursesQueue();
-        for(int index = 0; index < coursesQueue.length; index++){out.println(coursesQueue[index]);}
-    }
-
-    //Concatenate information
-    public static String concat(Object...args){
-        String concatenatedData = "";
-        for(int index = 0; index < args.length; index++)
-        {
-            concatenatedData += args[index];
-            if(index < args.length - 1){
-                concatenatedData += ",";
-            }
+    public static void uiPrintLaboratoriesQueue() {
+        String[] laboratoriesQueue = LogicLayer.getLaboratoriesQueueBackup();
+        int laboratoriesLogged = LogicLayer.getLaboratoriesCounter();
+        for (int index = 0; index < laboratoriesLogged; index++) {
+            out.println(laboratoriesQueue[index]);
         }
-        return concatenatedData;
     }
+
+    public static void uiPrintStudentsQueue() {
+        String[] studentsQueue = LogicLayer.getStudentsQueueBackup();
+        int studentsLogged = LogicLayer.getStudentsCounter();
+        for (int index = 0; index < studentsLogged; index++) {
+            out.println(studentsQueue[index]);
+        }
+    }
+
+    public static void uiPrintCourseQueue() {
+        String[] coursesQueue = LogicLayer.getCoursesQueueBackup();
+        int coursersLogged = LogicLayer.getCoursesCounter();
+        for (int index = 0; index < coursersLogged; index++) {
+            out.println(coursesQueue[index]);
+        }
+    }
+
+    public static void print(String input){
+        out.println("[" + input + "]");
+    }
+
 }

@@ -1,86 +1,110 @@
-/**
- * This file save the laboratories data
- */
+import java.time.LocalDate;
 
 public class LogicLayer {
-    static String[] laboratoriesQueue;
-    static String[] studentsQueue;
-    static String[] coursesQueue;
 
-    static int laboratories_counter = 0;
-    static int students_counter = 0;
-    static int courses_counter = 0;
+    private static Student[] studentsQueue;
+    private static Course[] coursesQueue;
+    private static Laboratory[] laboratoriesQueue;
 
+    private static int studentsCounter = 0;
+    private static int coursesCounter = 0;
+    private static int laboratoriesCounter = 0;
+
+    public static int getCoursesCounter() {
+        return coursesCounter;
+    }
+
+    public static int getStudentsCounter(){
+        return studentsCounter;
+    }
+
+    public static int getLaboratoriesCounter(){
+        return laboratoriesCounter;
+    }
 
     public static void initializeLaboratoriesQueue(int size){
-        laboratoriesQueue = new String[size];
+        laboratoriesQueue = new Laboratory[size];
     }
 
     public static void initializeStudentsQueue(int size){
-        studentsQueue  = new String[size];
+        studentsQueue  = new Student[size];
     }
 
-    public static void initializeCoursesQueue(int size) {coursesQueue = new String[size]; }
+    public static void initializeCoursesQueue(int size) {
+        coursesQueue = new Course[size];
+    }
 
-    public static boolean logLaboratory(String concatenatedData){
-        if(laboratories_counter < laboratoriesQueue.length) {
-            laboratoriesQueue[laboratories_counter] = concatenatedData;
-            laboratories_counter++;
+    /*
+    * Creates an instance of the Laboratory class.
+    * */
+    public static boolean logLaboratory(String name, int capacity, String course){
+        if(laboratoriesCounter < laboratoriesQueue.length){
+            Laboratory temporalLaboratory = new Laboratory(capacity, course, name);
+            laboratoriesQueue[laboratoriesCounter] = temporalLaboratory;
+            laboratoriesCounter++;
             return true;
         }else{
             return false;
         }
     }
 
-    public static boolean logStudent(String concatenatedData){
-        if(students_counter < studentsQueue.length){
-            studentsQueue[students_counter] = concatenatedData;
-            students_counter++;
+    public static boolean logStudent(String name, String lastName, String identification, Boolean isScholarship){
+        if(studentsCounter < studentsQueue.length){
+            Student temporalStudent = new Student(name, lastName, identification, isScholarship);
+            studentsQueue[studentsCounter] = temporalStudent;
+            studentsCounter++;
             return true;
         }else{
             return false;
         }
     }
 
-    public static boolean logCourse(String concatenatedData){
-        if(courses_counter < coursesQueue.length){
-            coursesQueue[courses_counter] = concatenatedData;
-            courses_counter++;
+    public static boolean logStudentComplete(String name, String lastName, String identification,
+                                             Boolean isScholarship, LocalDate birthday){
+        if(studentsCounter < studentsQueue.length){
+            Student temporalStudent = new Student(name, lastName, identification, isScholarship);
+            temporalStudent.setBirthday(birthday);
+            studentsQueue[studentsCounter] = temporalStudent;
+            studentsCounter++;
             return true;
         }else{
             return false;
         }
     }
 
-    public static String[] getLaboratoriesQueue(){
+    public static boolean logCourse(String code, String name, int credits){
+        if(coursesCounter < coursesQueue.length){
+            Course temporalCourse = new Course(code, name, credits);
+            coursesQueue[coursesCounter] = temporalCourse;
+            coursesCounter++;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public static String[] getLaboratoriesQueueBackup(){
         String[] laboratoriesQueueBackup = new String[laboratoriesQueue.length];
-        for(int index = 0; index < laboratoriesQueueBackup.length; index++){
-            laboratoriesQueueBackup[index] = laboratoriesQueue[index];
+        for(int index = 0; index < laboratoriesCounter; index++){
+            laboratoriesQueueBackup[index] = laboratoriesQueue[index].toString();
         }
-        return laboratoriesQueue;
+        return laboratoriesQueueBackup;
     }
 
-    public static String[] getStudentsQueue(){
+    public static String[] getStudentsQueueBackup(){
         String[] studentsQueueBackup = new String[studentsQueue.length];
-        for(int index = 0; index < studentsQueue.length; index++){
-            studentsQueueBackup[index] = studentsQueue[index];
+        for(int index = 0; index < studentsCounter; index++){
+            studentsQueueBackup[index] = studentsQueue[index].toString();
         }
         return studentsQueueBackup;
     }
 
-    public static String[] getCoursesQueue(){
+    public static String[] getCoursesQueueBackup() {
         String[] coursesQueueBackup = new String[coursesQueue.length];
-        for(int index = 0; index < coursesQueue.length; index++){
-            coursesQueueBackup[index] = coursesQueue[index];
+        for (int index = 0; index < coursesCounter; index++) {
+            coursesQueueBackup[index] = coursesQueue[index].toString();
         }
         return coursesQueueBackup;
-    }
-
-    public static String getStringLab(){
-        String data = "";
-        for(int index = 0; index < laboratoriesQueue.length; index++){
-            data += laboratoriesQueue[index] + "\n";
-        }
-        return data;
     }
 }
