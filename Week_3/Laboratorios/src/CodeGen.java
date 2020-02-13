@@ -1,12 +1,7 @@
 import java.util.Random;
 
 public class CodeGen {
-
-    public static void main(String[] args) {
-        System.out.println(generateHexCode(6));
-    }
-
-    public static StringBuilder generateHexCode(int codeLength){
+    public StringBuilder generateAlphaCode(int codeLength){
         StringBuilder stringCode = new StringBuilder();
         for(int index = 0; index < codeLength; index++){
             int randomInteger = generateRandomInt(26);
@@ -21,7 +16,7 @@ public class CodeGen {
     }
 
     // generates a random integer between two ranges
-    public static int generateRandomInt(int max){
+    private int generateRandomInt(int max){
         //create an instance of Random Class
         Random rand = new Random();
 

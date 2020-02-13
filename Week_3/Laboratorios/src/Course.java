@@ -12,8 +12,8 @@ public class Course {
     }
 
     //Object Complete Constructor
-    public Course(String code, String name, int credits){
-        this.code = code;
+    public Course(String name, int credits){
+        this.code = generateCourseCode();
         this.name = name;
         this.credits = credits;
     }
@@ -44,6 +44,11 @@ public class Course {
         return credits;
     }
 
+    private String generateCourseCode(){
+        CodeGen codeGenerator = new CodeGen();
+        String code = String.valueOf(codeGenerator.generateAlphaCode(7));
+        return code;
+    }
     //Object To String Overridden Method
     public String toString(){
         return  "Nombre: " + this.name + "\n" +

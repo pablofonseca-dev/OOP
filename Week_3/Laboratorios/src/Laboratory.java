@@ -18,12 +18,14 @@ public class Laboratory {
         this.capacity = capacity;
         this.course = course;
         this.name = name;
-        this.code = generateCode();
+        this.code = generateLaboratoryCode();
     }
 
     //Object Setter Access Methods
-    private String generateCode(){
-        return  String.valueOf(CodeGen.generateHexCode(6));
+    private String generateLaboratoryCode(){
+        CodeGen codeGenerator = new CodeGen();
+        String code = String.valueOf(codeGenerator.generateAlphaCode(7));
+        return code;
     }
 
     public void setCapacity(int capacity){
