@@ -25,16 +25,26 @@ public class LogicLayer {
         laboratoriesList.add(temporalLaboratory);
     }
 
-    public void logStudent(String name, String lastName, String identification, Boolean isScholarship){
-        Student temporalStudent = new Student(name, lastName, identification, isScholarship);
-        studentsList.add(temporalStudent);
+    public boolean logStudent(String name, String lastName, String identification, Boolean isScholarship){
+        if(validateStudentExistence(identification)){
+            return false;
+        }else {
+            Student temporalStudent = new Student(name, lastName, identification, isScholarship);
+            studentsList.add(temporalStudent);
+            return true;
+        }
     }
 
-    public void logStudentComplete(String name, String lastName, String identification,
+    public boolean logStudentComplete(String name, String lastName, String identification,
                                              Boolean isScholarship, LocalDate birthday){
+        if(validateStudentExistence(identification)){
+            return false;
+        }else {
             Student temporalStudent = new Student(name, lastName, identification, isScholarship);
             temporalStudent.setBirthday(birthday);
             studentsList.add(temporalStudent);
+            return true;
+        }
     }
 
     public void logCourse(String name, int credits){
@@ -65,5 +75,14 @@ public class LogicLayer {
             coursesStringBackup[index] = coursesList.get(index).toString();
         }
         return coursesStringBackup;
+    }
+
+    public boolean validateStudentExistence(String code){
+        for(Student e: studentsList){
+            if(e.getIdentification().equalsIgnoreCase(code)){
+                return true;
+            }
+        }
+        return false;
     }
 }

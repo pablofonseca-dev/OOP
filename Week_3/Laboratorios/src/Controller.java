@@ -13,13 +13,21 @@ public class Controller {
         logicLayer.logLaboratory(name, capacity, course);
     }
 
-    public void requestLogStudent(String name, String lastName, String identification, Boolean isScholarship){
-        logicLayer.logStudent(name, lastName, identification, isScholarship);
+    public boolean requestLogStudent(String name, String lastName, String identification, Boolean isScholarship){
+        if(logicLayer.logStudent(name, lastName, identification, isScholarship)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void requestLogStudentComplete(String name, String lastName, String identification,
+    public boolean requestLogStudentComplete(String name, String lastName, String identification,
                                           Boolean isScholarship, LocalDate birthday){
-        logicLayer.logStudentComplete(name, lastName, identification, isScholarship, birthday);
+        if(logicLayer.logStudentComplete(name, lastName, identification, isScholarship, birthday)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void requestLogCourse(String name, int credits){

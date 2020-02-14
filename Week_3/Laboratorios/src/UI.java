@@ -168,95 +168,111 @@ public class UI {
     }
 
     public static void uiAddStudent() throws IOException {
-        String name, lastName, code;
-        boolean isScholarship, isACompleteLog;
-        out.println("Ingrese los datos del estudiante");
+        boolean rootValidationFlow = true;
+        do {
+            String name, lastName, code;
+            boolean isScholarship, isACompleteLog;
+            LocalDate birthday;
+            out.println("Ingrese los datos del estudiante");
 
-        out.println("Identificación Numérica");
-        out.print(">>> ");
-        code = in.readLine();
-        if(!isNotAnEmptyString(code)){
-            out.println("[La identificación no puede estar vacía]");
-        }
-        if(!moreThanThreeChars(code)){
-            out.println("[La identificación debe contener al menos tres dígitos");
-        }
-        if(!isDigit(code)){
-            out.println("[La identificación no puede contener letras]");
-            return;
-        }
-        out.println("Nombre");
-        out.print(">>> ");
-        name = in.readLine();
-        if(!isNotAnEmptyString(name)){
-            print("El nombre no puede estar vacío");
-            return;
-        }
-        if(!isAlpha(name)){
-            print("El nombre no puede contener valores numéricos");
-            return;
-        }
-        if(!moreThanThreeChars(name)){
-            print("El nombre debe contener al menos tres caracteres");
-            return;
-        }
-        out.println("Apellido");
-        out.print(">>> ");
-        lastName = in.readLine();
-        if(!isNotAnEmptyString(lastName)){
-            print("El apellido no puede estar vacío");
-            return;
-        }
-        if(!isAlpha(lastName)){
-            print("El apellido no puede contener valores numéricos");
-            return;
-        }
-        if(!moreThanThreeChars(lastName)){
-            print("El apellido debe contener al menos tres caracteres");
-            return;
-        }
+            out.println("Identificación Numérica");
+            out.print(">>> ");
+            code = in.readLine();
+            if(!isNotAnEmptyString(code)){
+                out.println("[La identificación no puede estar vacía]");
+            }
+            if(!moreThanThreeChars(code)){
+                out.println("[La identificación debe contener al menos tres dígitos");
+            }
+            if(!isDigit(code)){
+                out.println("[La identificación no puede contener letras]");
+                return;
+            }
+            out.println("Nombre");
+            out.print(">>> ");
+            name = in.readLine();
+            if(!isNotAnEmptyString(name)){
+                print("El nombre no puede estar vacío");
+                return;
+            }
+            if(!isAlpha(name)){
+                print("El nombre no puede contener valores numéricos");
+                return;
+            }
+            if(!moreThanThreeChars(name)){
+                print("El nombre debe contener al menos tres caracteres");
+                return;
+            }
+            out.println("Apellido");
+            out.print(">>> ");
+            lastName = in.readLine();
+            if(!isNotAnEmptyString(lastName)){
+                print("El apellido no puede estar vacío");
+                return;
+            }
+            if(!isAlpha(lastName)){
+                print("El apellido no puede contener valores numéricos");
+                return;
+            }
+            if(!moreThanThreeChars(lastName)){
+                print("El apellido debe contener al menos tres caracteres");
+                return;
+            }
 
-        out.println("¿El estudiante es becado? (S/N)");
-        out.print(">>> ");
-        isScholarship = convertToBooleanExpression(in.readLine());
+            out.println("¿El estudiante es becado? (S/N)");
+            out.print(">>> ");
+            isScholarship = convertToBooleanExpression(in.readLine());
 
-        out.println("¿Desea Agregar la Fecha de Nacimiento? (S/N)");
-        out.print(">>> ");
-        isACompleteLog = convertToBooleanExpression(in.readLine());
+            out.println("¿Desea Agregar la Fecha de Nacimiento? (S/N)");
+            out.print(">>> ");
+            isACompleteLog = convertToBooleanExpression(in.readLine());
+            if (isACompleteLog) {
+                boolean validationFlow = true;
+                do{
+                    int year, day, month;
+                    out.println("Año de Nacimiento");
+                    out.print(">>> ");
+                    year = Integer.parseInt(in.readLine());
 
-        if (isACompleteLog) {
-            boolean validationFlow = true;
-            do {
-                int year, day, month;
-                out.println("Año de Nacimiento");
-                out.print(">>> ");
-                year = Integer.parseInt(in.readLine());
+                    out.println("Mes de Nacimiento");
+                    out.print(">>> ");
+                    month = Integer.parseInt(in.readLine());
 
-                out.println("Mes de Nacimiento");
-                out.print(">>> ");
-                month = Integer.parseInt(in.readLine());
+                    out.println("Día de Nacimiento");
+                    out.print(">>> ");
+                    day = Integer.parseInt(in.readLine());
 
-                out.println("Día de Nacimiento");
-                out.print(">>> ");
-                day = Integer.parseInt(in.readLine());
+                    birthday = convertToLocalDate(year, month, day);
 
-                LocalDate birthday = convertToLocalDate(year, month, day);
-
-                if (birthday != null) {
-                    out.println("[Fecha Convertida]");
-                    controller.requestLogStudentComplete(name, lastName, code, isScholarship, birthday);
-                    validationFlow = false;
+                    if (birthday != null) {
+                        out.println("[Fecha Convertida]");
+                        validationFlow = false;
+                    }else {
+                        out.println("[Formato Incorrecto]");
+                        out.println("[Vuelva a ingresar la fecha]");
+                    }
+                }while(validationFlow);
+                if (controller.requestLogStudentComplete(name, lastName, code, isScholarship, birthday)) {
+                    print("Peticón Aceptada");
+                    print("Estudiante registrado en memoria");
+                    rootValidationFlow = false;
                 } else {
-                    out.println("[Formato Incorrecto]");
-                    out.println("[Vuelva a ingresar la fecha]");
+                    print("Petición Denegada");
+                    print("La identificación del estudiante ya existe en el registro");
                 }
-            } while (validationFlow);
-        } else {
-            controller.requestLogStudent(name, lastName, code, isScholarship);
-            out.println("[Fecha Ignorada]");
-        }
-        print("Petición Aceptada");
-        print("Estudiante Agregado en Memoria");
+            }else {
+                if(controller.requestLogStudent(name, lastName, code, isScholarship)){
+                    print("Fecha Ignorada");
+                    print("Peticón Aceptada");
+                    print("Estudiante registrado en memoria");
+                    rootValidationFlow = false;
+                }else{
+                    print("Petición Denegada");
+                    print("La identificación del estudiante ya existe en el registro");
+                }
+            }
+
+        }while(rootValidationFlow);
     }
 
     public static void uiAddCourse() throws IOException {

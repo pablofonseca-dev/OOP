@@ -9,6 +9,7 @@ public class Student {
     private LocalDate birthday;
     private Boolean isScholarship;
     private int age; // calculated value
+    private String code; //dinamic value
 
     //Object Default Constructor
     public Student(){
@@ -25,6 +26,7 @@ public class Student {
         this.lastName = lastName;
         this.identification = identification;
         this.isScholarship = isScholarship;
+        this.code = generateCode();
     }
 
     //Object Setter Access Methods
@@ -47,6 +49,12 @@ public class Student {
 
     public void setScholarship(Boolean scholarship) {
         isScholarship = scholarship;
+    }
+
+    private String generateCode(){
+        CodeGen codeGenerator = new CodeGen();
+        String code = String.valueOf(codeGenerator.generateAlphaCode(15));
+        return code;
     }
 
     //Object Getter Access Methods
@@ -83,12 +91,14 @@ public class Student {
                     "Identificación: " + identification + "\n" +
                     "¿Becado o No Becado?: " + isScholarship + "\n" +
                     "Fecha de Nacimiento: " + birthday + "\n" +
-                    "Edad: " + age + " años \n";
+                    "Edad: " + age + " años \n" +
+                    "Código Generado: " + code + "\n";
         }else{
             format = "Nombre: " + name + "\n" +
                     "Apellido: " + lastName + "\n" +
                     "Identificación: " + identification + "\n" +
-                    "¿Becado o No Becado?: " + isScholarship + "\n";
+                    "¿Becado o No Becado?: " + isScholarship + "\n" +
+                    "Código Generado: " + code + "\n";
         }
         return format;
     }
