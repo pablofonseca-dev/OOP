@@ -38,10 +38,8 @@ public class ApplicationStartStage extends Application {
         //ComboBoxes comboBoxes = new ComboBoxes(primaryStage);
         //ListViews listViews = new ListViews(primaryStage);
         //TreeViews treeViews = new TreeViews(primaryStage);
-        TableViews tableViews = new TableViews(primaryStage);
-
+        //TableViews tableViews = new TableViews(primaryStage);
+        Menus menus = new Menus(primaryStage);
         primaryStage.show();
-
-
     }
 }
