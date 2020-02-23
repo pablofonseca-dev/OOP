@@ -31,7 +31,7 @@ public class ApplicationStartStage extends Application {
         }
         //Confirmations confirmations = new Confirmations(primaryStage);
         //EmbeddingLayouts embeddingLayouts = new EmbeddingLayouts(primaryStage);
-        //GridPanes gridPanes = new GridPanes(primaryStage);
+        GridPanes gridPanes = new GridPanes(primaryStage);
         //ExtractInputs  extractInputs = new ExtractInputs(primaryStage);
         //CheckBoxes checkBoxes = new CheckBoxes(primaryStage);
         //ChoiceBoxes choiceBoxes = new ChoiceBoxes(primaryStage);
@@ -39,7 +39,7 @@ public class ApplicationStartStage extends Application {
         //ListViews listViews = new ListViews(primaryStage);
         //TreeViews treeViews = new TreeViews(primaryStage);
         //TableViews tableViews = new TableViews(primaryStage);
-        Menus menus = new Menus(primaryStage);
+        //Menus menus = new Menus(primaryStage);
         primaryStage.show();
     }
 }

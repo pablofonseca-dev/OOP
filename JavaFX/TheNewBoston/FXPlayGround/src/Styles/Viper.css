@@ -1,0 +1,20 @@
+.root{
+    -fx-background-color: #383838;
+    -fx-font-size: 11pt;
+    -fx-alignment: center;
+}
+.label, .button{
+    -fx-text-fill: #FFFFFF;
+}
+.button{
+    /* Linear Gradient, fading from one color to another :) */
+    /*-fx-background-color: linear-gradient(#DC96F6, #AB4642);*/
+    -fx-background-color: #AB4642;
+    -fx-background-radius: 10; /* The same of border-radius */
+}
+
+/* Another method is to create inline styles */
+
+#signUpButton{
+    -fx-background-color: #7CAFC2;
+}

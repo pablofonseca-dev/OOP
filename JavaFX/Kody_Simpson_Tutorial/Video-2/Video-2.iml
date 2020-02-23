@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="JavaFX Version 13.0.2 Lib" level="project" />
     <orderEntry type="library" name="JFoenix Version 9.0.8 Lib" level="project" />
+    <orderEntry type="library" name="JavaFX Version 13.0.2 Lib" level="project" />
   </component>
 </module>
