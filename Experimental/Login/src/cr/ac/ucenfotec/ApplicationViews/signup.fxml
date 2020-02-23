@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="938.0" style="-fx-background-color: transparent;" stylesheets="@../Styles/title_bar.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.ucenfotec.ApplicationControllers.SignUpController">
+   <children>
+      <StackPane prefHeight="671.0" prefWidth="938.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox style="-fx-background-color: #00cec9;" HBox.hgrow="ALWAYS" />
+                  <VBox style="-fx-background-color: #FFFFFF;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <fx:include source="title_bar.fxml" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+      <VBox alignment="CENTER" layoutX="31.0" layoutY="39.0" prefHeight="607.0" prefWidth="867.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" spacing="4.0" style="-fx-background-color: #fff;">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="6.0">
+                     <children>
+                        <Label text="Crea una Cuenta">
+                           <font>
+                              <Font name="Alegreya Sans Light Italic" size="55.0" />
+                           </font>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fitHeight="57.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Media/mediaware.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox maxWidth="-Infinity" prefHeight="38.0" prefWidth="405.0">
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                     <children>
+                        <JFXTextArea fx:id="user_nickname" focusColor="BLACK" opacity="0.4" prefHeight="35.0" prefWidth="336.0" style="-fx-text-fill: #000;" text="Nombre de Usuario" unFocusColor="BLACK">
+                           <font>
+                              <Font name="Alegreya Sans Regular" size="22.0" />
+                           </font>
+                        </JFXTextArea>
+                        <ImageView fitHeight="57.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Media/login_avatar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox maxWidth="-Infinity" prefHeight="38.0" prefWidth="405.0">
+                     <children>
+                        <JFXTextArea fx:id="user_email" focusColor="BLACK" opacity="0.4" prefHeight="35.0" prefWidth="336.0" style="-fx-text-fill: #000;" text="Correo Electrónico" unFocusColor="BLACK">
+                           <font>
+                              <Font name="Alegreya Sans Regular" size="22.0" />
+                           </font>
+                        </JFXTextArea>
+                        <ImageView fitHeight="57.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Media/login_email.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox maxWidth="-Infinity" prefHeight="38.0" prefWidth="405.0">
+                     <children>
+                        <JFXTextArea fx:id="user_password" focusColor="BLACK" opacity="0.4" prefHeight="35.0" prefWidth="336.0" style="-fx-text-fill: #000;" text="Clave de Seguridad" unFocusColor="BLACK">
+                           <font>
+                              <Font name="Alegreya Sans Regular" size="22.0" />
+                           </font>
+                        </JFXTextArea>
+                        <ImageView fitHeight="57.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Media/login_key.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <JFXButton fx:id="signup_button" onMouseClicked="#createAccount" prefHeight="46.0" prefWidth="138.0" style="-fx-background-color: #ff6b6b;" text="Ingresar" textFill="WHITE">
+                     <font>
+                        <Font name="Alegreya Sans Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="36.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-family: Quicksand; -fx-font-size:16px" text="Ya Tengo Una Cuenta">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></Label>
+                        <Label fx:id="signin_button" onMouseClicked="#login" style="-fx-font-weight: bold; -fx-font-family: Quicksand; -fx-font-size: 16px; -fx-text-fill: #13ADB0;" text="Iniciar Sesión">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
