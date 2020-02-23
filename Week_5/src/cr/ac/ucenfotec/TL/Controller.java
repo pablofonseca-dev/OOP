@@ -33,4 +33,8 @@ public class Controller {
     public String[] listEmployees(){
         return logicLayer.getEmployees();
     }
+
+    public Boolean validateResponsibleExistence(String name, String identification){
+        return logicLayer.validateResponsibleExistenceLogic(name, identification);
+    }
 }

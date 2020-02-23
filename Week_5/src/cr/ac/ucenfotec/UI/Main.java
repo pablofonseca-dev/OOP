@@ -1,5 +1,6 @@
 
 package cr.ac.ucenfotec.UI;
+import cr.ac.ucenfotec.BL.Computer;
 import cr.ac.ucenfotec.TL.Controller;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class Main {
     public static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     public static PrintStream out = System.out;
     public static Controller controller;
+    public static final int MAKE_EMPLOYEE_RELATION = 1;
+    public static final int LOG_EMPLOYEE = 2;
 
     /**
      * Program Main Stage
@@ -62,6 +65,7 @@ public class Main {
                 }
             } catch (NumberFormatException exception) {
                 out.println("[La acción debe ser un número]");
+
             }
 
         } while (programFlow);
@@ -99,7 +103,7 @@ public class Main {
                 logComputerUI();
                 break;
             case 2:
-                logEmployeeUI();
+                logEmployeeUI(LOG_EMPLOYEE);
                 break;
             case 3:
                 listComputers();
@@ -113,45 +117,61 @@ public class Main {
         }
     }
 
-    public static void logComputerUI() throws IOException{
+    public static void logComputerUI() throws IOException {
         String brand;
         String serialCode;
         String question;
         out.println("Marca");
-        out.print(">>> ");
+        prompt();
         brand = in.readLine();
         out.println("Número de Serie");
-        out.print(">>> ");
+        prompt();
         serialCode = in.readLine();
-        out.println("¿Desea registrar el empleado responsable? (S/N)");
+        out.println("¿Desea asignar el empleado responsable? (S/N)");
         prompt();
         question = in.readLine();
         if(question.equalsIgnoreCase("S")){
-            String name;
-            String identification;
-            out.println("Nombre");
-            prompt();
-            name = in.readLine();
-            out.println("Identificación");
-            prompt();
-            identification = in.readLine();
-            controller.logComputer(brand, serialCode, name, identification);
-            controller.logEmployee(name, identification);
-        }else {
-            controller.logComputer(brand, serialCode);
+            out.println("Ha elegido agregar un responsable");
+            logEmployeeUI(MAKE_EMPLOYEE_RELATION, brand, serialCode);
         }
     }
+    public static void logEmployeeUI(int operationType, String... computerData) throws IOException{
+        boolean validationFlow = true;
+        do {
+            String name;
+            String identification;
+            String question;
+            out.println("Escriba el nombre del empleado");
+            prompt();
+            name = in.readLine();
 
-    public static void logEmployeeUI() throws IOException{
-        String name;
-        String identification;
-        out.println("Nombre");
-        prompt();
-        name = in.readLine();
-        out.println("Identificación");
-        prompt();
-        identification = in.readLine();
-        controller.logEmployee(name, identification);
+            out.println("Escriba la identificación del empleado");
+            prompt();
+            identification = in.readLine();
+
+            switch (operationType) {
+                case LOG_EMPLOYEE:
+                    controller.logEmployee(name, identification);
+                    validationFlow = false;
+                    break;
+                case MAKE_EMPLOYEE_RELATION:
+                    if (controller.validateResponsibleExistence(name, identification)) {
+                        out.println("Se ha encontrado el registro del responsable");
+                        controller.logComputer(computerData[0], computerData[1], name, identification);
+                        out.println("La relación se hizo satisfactoriamente");
+                        validationFlow = false;
+                    } else {
+                        out.println("Al parecer el empleado no existe, por ende no se puede hacer el enlace");
+                        out.println("¿Desea registrarlo? (S/N)");
+                        question = in.readLine();
+                        if (!question.equalsIgnoreCase("S")) {
+                            controller.logComputer(computerData[0], computerData[1]);
+                            validationFlow = false;
+                        }
+                    }
+                    break;
+            }
+        }while(validationFlow);
     }
 
     public static void listComputers(){

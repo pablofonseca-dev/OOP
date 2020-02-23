@@ -42,4 +42,12 @@ public class LogicLayer {
         return employeesQueueCopy;
     }
 
+    public Boolean validateResponsibleExistenceLogic(String name, String identification){
+        for(Employee employee: employeesArrayList){
+            if(employee.getIdentification().equalsIgnoreCase(identification) && employee.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
