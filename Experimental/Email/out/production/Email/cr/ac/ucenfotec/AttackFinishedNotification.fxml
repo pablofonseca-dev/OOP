@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="354.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.ucenfotec.AttackFinishedNotificationController">
+   <top>
+      <ImageView fx:id="exitButton" fitHeight="39.0" fitWidth="31.0" onMouseClicked="#closeNotificationStage" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_RIGHT">
+         <image>
+            <Image url="@Pictures/close_s100.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets right="5.0" top="6.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="156.0" prefWidth="284.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Attack Finished" textFill="#ff3a3a">
+               <font>
+                  <Font name="Fira Code Regular" size="21.0" />
+               </font>
+            </Label>
+            <Label text="TOTAL BOMBS" textFill="WHITE" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

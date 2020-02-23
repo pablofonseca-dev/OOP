@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_email" default="compile.module.email">
+  <dirname property="module.email.basedir" file="${ant.file.module_email}"/>
+  
+  <property name="module.jdk.home.email" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.email" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.email" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.email" value="-encoding UTF-8 -source 13 -target 13 ${compiler.args}"/>
+  
+  <property name="email.output.dir" value="${module.email.basedir}/out/production/Email"/>
+  <property name="email.testoutput.dir" value="${module.email.basedir}/out/test/Email"/>
+  
+  <path id="email.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="email.module.production.classpath">
+    <path refid="${module.jdk.classpath.email}"/>
+    <path refid="library.java_mail_library.classpath"/>
+    <path refid="library.activation_mail_library.classpath"/>
+    <path refid="library.java_fx_application_libraries.classpath"/>
+    <path refid="library.jfoenix_material_design_library.classpath"/>
+  </path>
+  
+  <path id="email.runtime.production.module.classpath">
+    <pathelement location="${email.output.dir}"/>
+    <path refid="library.java_mail_library.classpath"/>
+    <path refid="library.activation_mail_library.classpath"/>
+    <path refid="library.java_fx_application_libraries.classpath"/>
+    <path refid="library.jfoenix_material_design_library.classpath"/>
+  </path>
+  
+  <path id="email.module.classpath">
+    <path refid="${module.jdk.classpath.email}"/>
+    <pathelement location="${email.output.dir}"/>
+    <path refid="library.java_mail_library.classpath"/>
+    <path refid="library.activation_mail_library.classpath"/>
+    <path refid="library.java_fx_application_libraries.classpath"/>
+    <path refid="library.jfoenix_material_design_library.classpath"/>
+  </path>
+  
+  <path id="email.runtime.module.classpath">
+    <pathelement location="${email.testoutput.dir}"/>
+    <pathelement location="${email.output.dir}"/>
+    <path refid="library.java_mail_library.classpath"/>
+    <path refid="library.activation_mail_library.classpath"/>
+    <path refid="library.java_fx_application_libraries.classpath"/>
+    <path refid="library.jfoenix_material_design_library.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.email">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.email">
+    <patternset refid="excluded.from.module.email"/>
+  </patternset>
+  
+  <path id="email.module.sourcepath">
+    <dirset dir="${module.email.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.email" depends="compile.module.email.production,compile.module.email.tests" description="Compile module Email"/>
+  
+  <target name="compile.module.email.production" depends="register.custom.compilers" description="Compile module Email; production classes">
+    <mkdir dir="${email.output.dir}"/>
+    <javac2 destdir="${email.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.email}/javac">
+      <compilerarg line="${compiler.args.email}"/>
+      <bootclasspath refid="email.module.bootclasspath"/>
+      <classpath refid="email.module.production.classpath"/>
+      <src refid="email.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.email"/>
+    </javac2>
+    
+    <copy todir="${email.output.dir}">
+      <fileset dir="${module.email.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.email.tests" depends="register.custom.compilers,compile.module.email.production" description="compile module Email; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.email" description="cleanup module">
+    <delete dir="${email.output.dir}"/>
+    <delete dir="${email.testoutput.dir}"/>
+  </target>
+</project>
