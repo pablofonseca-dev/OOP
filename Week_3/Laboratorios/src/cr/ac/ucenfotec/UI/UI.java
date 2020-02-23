@@ -1,3 +1,7 @@
+package cr.ac.ucenfotec.UI;
+
+import cr.ac.ucenfotec.TL.Controller;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.InputStreamReader;

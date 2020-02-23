@@ -1,3 +1,7 @@
+package cr.ac.ucenfotec.BL;
+
+import cr.ac.ucenfotec.BL.CodeGen;
+
 public class Laboratory {
     //Object Attributes
     private String code; //generated attribute

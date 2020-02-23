@@ -1,3 +1,7 @@
+package cr.ac.ucenfotec.BL;
+
+import cr.ac.ucenfotec.BL.CodeGen;
+
 import java.time.LocalDate;
 import java.time.Period;
 

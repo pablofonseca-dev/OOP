@@ -1,4 +1,9 @@
-import java.lang.reflect.Array;
+package cr.ac.ucenfotec.DL;
+
+import cr.ac.ucenfotec.BL.Course;
+import cr.ac.ucenfotec.BL.Laboratory;
+import cr.ac.ucenfotec.BL.Student;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 public class LogicLayer {
@@ -18,7 +23,7 @@ public class LogicLayer {
         coursesList = new ArrayList<>();
     }
     /*
-    * Creates an instance of the Laboratory class.
+    * Creates an instance of the cr.ac.ucenfotec.BL.Laboratory class.
     * */
     public void logLaboratory(String name, int capacity, String course){
         Laboratory temporalLaboratory = new Laboratory(capacity, course, name);

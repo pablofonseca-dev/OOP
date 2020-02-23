@@ -1,3 +1,5 @@
+package cr.ac.ucenfotec.BL;
+
 import java.util.Random;
 
 public class CodeGen {

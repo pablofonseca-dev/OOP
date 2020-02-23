@@ -1,3 +1,7 @@
+package cr.ac.ucenfotec.BL;
+
+import cr.ac.ucenfotec.BL.CodeGen;
+
 public class Course {
     //Object Attributes
     private String code;
