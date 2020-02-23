@@ -1,3 +1,5 @@
+package cr.ac.ucenfotec.DL;
+
 public class LogicLayer {
     public double add(double numberOne, double numberTwo){
         double addition;

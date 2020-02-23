@@ -1,3 +1,7 @@
+package cr.ac.ucenfotec.TL;
+
+import cr.ac.ucenfotec.DL.LogicLayer;
+
 public class Controller {
     public LogicLayer logicLayer = new LogicLayer();
     public double calculateAddition(double[] numbers){
