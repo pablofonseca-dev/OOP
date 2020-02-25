@@ -153,10 +153,6 @@ public class UI {
         }
     }
 
-    public static boolean validateEngineExistence(String serialNumber, int cylindersAmount){
-        return controller.validateEngineExistence(serialNumber, cylindersAmount);
-    }
-
     public static boolean makeQuestion(String questionContent) throws IOException {
         String answer;
         boolean error = false;
