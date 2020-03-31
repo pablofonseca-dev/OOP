@@ -26,8 +26,8 @@ public class Controller {
         logicLayer.logCar(temporalCar);
     }
 
-    public boolean validateEngineExistence(String serialNumber, int cylindersAmount){
-        return logicLayer.engineExistence(serialNumber, cylindersAmount);
+    public boolean validateEngineExistence(String serialNumber){
+        return logicLayer.engineExistence(serialNumber);
     }
 
     public String[] getEngines(){

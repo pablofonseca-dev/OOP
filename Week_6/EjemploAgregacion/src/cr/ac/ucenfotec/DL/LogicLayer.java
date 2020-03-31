@@ -53,9 +53,9 @@ public class LogicLayer {
         return -1;
     }
 
-    public boolean engineExistence(String serialNumber, int cylindersAmount){
+    public boolean engineExistence(String serialNumber){
         for(Engine e: engineArrayList){
-            if(e.getSerialNumber().equalsIgnoreCase(serialNumber) && e.getCylindersAmount() == cylindersAmount){
+            if(e.getSerialNumber().equalsIgnoreCase(serialNumber)){
                 return true;
             }
         }

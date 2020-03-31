@@ -49,7 +49,7 @@ public class MediaPlayerFXController implements Initializable {
         System.out.println("Initializing the Controller of the Media Player FXML");
 
         //Custom Path of one video
-        String path = new File("src/Video/cybertruck_demo_2.mp4").getPath();
+        String path = new File("src/Video/marvel_end_game.mp4").getPath();
         File file = new File(path);
         //Convert from relative Path to an absolute path depending of each computer file system.
         String fileConversion = file.toURI().toString();
@@ -85,10 +85,12 @@ public class MediaPlayerFXController implements Initializable {
 
         //Set automatic movement to progressBar slider
         mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+
             @Override
             public void changed(ObservableValue<? extends Duration> observableValue, Duration oldValue,
                                 Duration newValue) {
-                progressBar.setValue(newValue.toSeconds());
+                progressBar.setMax(mediaPlayer.getTotalDuration().toSeconds());
+                progressBar.setValue(mediaPlayer.getCurrentTime().toSeconds());
             }
         });
 

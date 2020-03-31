@@ -1,6 +1,6 @@
 package cr.ac.ucenfotec.BL.DAO;
 
-import cr.ac.ucenfotec.BL.User.IWorker;
+import cr.ac.ucenfotec.BL.User.IAdministrator;
 
 /**
  * Clase DaoFactory que va a contener la opciones de motores de bases de datos va a permitir
@@ -31,5 +31,5 @@ public abstract class DAOFactory {
      * @author Pablo Fonseca
      * @version 1.0
      */
-    public abstract IWorker getWorkerDao();
+    public abstract IAdministrator getAdministratorDao();
 }

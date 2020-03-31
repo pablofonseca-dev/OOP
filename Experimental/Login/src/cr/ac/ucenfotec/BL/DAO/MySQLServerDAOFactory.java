@@ -1,12 +1,12 @@
 package cr.ac.ucenfotec.BL.DAO;
 
-import cr.ac.ucenfotec.BL.User.IWorker;
-import cr.ac.ucenfotec.BL.User.MySQLWorkerDAO;
+import cr.ac.ucenfotec.BL.User.IAdministrator;
+import cr.ac.ucenfotec.BL.User.MySQLAdministratorDAO;
 
 public class MySQLServerDAOFactory extends DAOFactory {
 
     @Override
-    public IWorker getWorkerDao() {
-        return new MySQLWorkerDAO();
+    public IAdministrator getAdministratorDao() {
+        return new MySQLAdministratorDAO();
     }
 }

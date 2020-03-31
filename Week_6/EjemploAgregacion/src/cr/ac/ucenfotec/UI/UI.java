@@ -113,9 +113,6 @@ public class UI {
                 //Option 5
                 outputEngines();
                 break;
-            case 6:
-                //Option 6
-                break;
             default:
                 out.println("[Opción Inválida]");
                 break;
@@ -135,7 +132,7 @@ public class UI {
                     engineData = getEngineData();
                     if(engineData != null){
                         //Validate if the engine exist.
-                        if(validateEngineExistence(engineData.get(0), Integer.parseInt(engineData.get(1)))){
+                        if(validateEngineExistence(engineData.get(0))){
                             controller.logCar(carData.get(0), carData.get(1), engineData.get(0), Integer.parseInt(engineData.get(1)));
                             bracketPrint("El motor se asoció exitosamente");
                             errorExpected = false;
@@ -319,8 +316,8 @@ public class UI {
         }
     }
 
-    public static boolean validateEngineExistence(String serialNumber, int cylindersAmount){
-        return controller.validateEngineExistence(serialNumber, cylindersAmount);
+    public static boolean validateEngineExistence(String serialNumber){
+        return controller.validateEngineExistence(serialNumber);
     }
 
     public static boolean makeQuestion(String questionContent) throws IOException {

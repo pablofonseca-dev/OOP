@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -27,16 +29,17 @@ public class ApplicationBoot extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("../ApplicationViews/signup.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../ApplicationViews/login.fxml"));
+            BorderPane rootNode = (BorderPane) root;
             //This events are designed to enable reposition in "X" and "Y" axis.
-            root.setOnMousePressed(new EventHandler<MouseEvent>() {
+            rootNode.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     xOffset = mouseEvent.getSceneX();
                     yOffset = mouseEvent.getSceneY();
                 }
             });
-            root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            rootNode.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     primaryStage.setX(mouseEvent.getScreenX() - xOffset);
@@ -44,9 +47,10 @@ public class ApplicationBoot extends Application {
                 }
             });
             primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setAlwaysOnTop(true);
+            primaryStage.setAlwaysOnTop(false);
             primaryStage.setResizable(false);
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(rootNode);
+            scene.getStylesheets().add(getClass().getResource("../Styles/title_bar.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

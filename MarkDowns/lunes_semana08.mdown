@@ -1,0 +1,20 @@
+# Lunes 09 de Marzo del 2019
+
+Laboratorio para mañana, jueves y viernes a partir de las 4:00 p.m hasta las 6:00 p.m
+
+Contains que tiene un Object del ArrayList está utilizando un el objeto equals de la clase Object. 
+
+Para la clase Object dos métodos son iguales si están apuntando a la misma dirección de memoria, si no es así significa que no son iguales, por 
+
+eso no siempre nos sirve que se utilice la implementación de la clase padre, ya que a menos de que dos objetos sean equivalentes, contains nunca nos va a retornar true. 
+
+¿Cómo opera el método Equals?
+
+1. Nunca cambiar la definición por naturaleza del método Equals, ya que no se estaría sobreescribiendo el método del padre. 
+2. Compara si dos objetos están en la misma posición de memoria, si sí están inmediatamente retorna true. 
+3. Si el parámetro tiene una posición nula inmediatamente returna false, igualmente, si el getClass() es distinto, es decir, el objeto es de otra clase también retorna false. 
+4. Luego crea un objeto Persona igual al objeto enviado con un casting implícito de Persona por ejemplo, con esto se podrán realizar comparaciones más profundas, más propias de
+   la clase y no tan superficial como comparaciones desde la clase Object. 
+
+En la UI del proyecto I	estarán todos los Java FX
+En el proyeco II se implementa el JAR de la lógica. 

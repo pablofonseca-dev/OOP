@@ -1,0 +1,4 @@
+Pablo,Fonseca,118110145,Masculino
+Alex,Abarca,118110146,Masculino
+Paola, Brown, 11214532,Femenino
+Alexa,Goodman,22321232,Femenino

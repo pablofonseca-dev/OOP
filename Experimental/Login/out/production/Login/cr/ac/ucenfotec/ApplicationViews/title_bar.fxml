@@ -5,24 +5,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-
-<HBox alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cr.ac.ucenfotec.ApplicationControllers.TitleBarController">
+<HBox alignment="CENTER_RIGHT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.ucenfotec.ApplicationControllers.TitleBarController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click"
-                 fx:id="minimize">
+      <ImageView fx:id="minimize" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click">
          <image>
-            <Image url="@../Media/yellow_circle.png"/>
+            <Image url="@../Media/yellow_circle.png" />
          </image>
          <HBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </HBox.margin>
       </ImageView>
-      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click"
-                 fx:id="fullScreen">
+      <ImageView fx:id="fullScreen" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click">
          <image>
             <Image url="@../Media/green_circle.png" />
          </image>
@@ -30,8 +26,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </HBox.margin>
       </ImageView>
-      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click"
-                 fx:id="exit">
+      <ImageView fx:id="exit" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="click">
          <image>
             <Image url="@../Media/red_circle.png" />
          </image>

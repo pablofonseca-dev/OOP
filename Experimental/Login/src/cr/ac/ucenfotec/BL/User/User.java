@@ -3,73 +3,29 @@ package cr.ac.ucenfotec.BL.User;
 import java.time.LocalDate;
 
 public class User {
-    private String firstName;
-    private String surName;
-    private String lastName;
-    private String identification;
-    private int databaseID;
-    private String country;
-    private LocalDate birthday;
-    private int age;
-    private String motherLanguage;
+    protected String firstName;
+    protected String password;
+    protected String email;
+    protected int databaseID;
+
 
     //Default Constructor
     public User() {
         this.firstName = "";
-        this.surName = "";
-        this.lastName = "";
-        this.identification = "";
-        this.databaseID = 0;
-        this.country = "";
-        this.birthday = LocalDate.now();
-        this.age = 0;
-        this.motherLanguage = "";
+        this.password = "";
+        this.email = "";
     }
+
+    //Complete Constructor
+
+    public User(String firstName, String password, String email) {
+        this.firstName = firstName;
+        this.password = password;
+        this.email = email;
+    }
+
 
     //Basic Constructor
-    public User(String firstName, String surName, String lastName) {
-        this.firstName = firstName;
-        this.surName = surName;
-        this.lastName = lastName;
-    }
-
-    //Getters
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSurName(){
-        return surName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getIdentification() {
-        return identification;
-    }
-
-    public int getDatabaseID() {
-        return databaseID;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getMotherLanguage() {
-        return motherLanguage;
-    }
 
     //Setters
 
@@ -77,33 +33,39 @@ public class User {
         this.firstName = firstName;
     }
 
-    public void setSurName(String surName){
-        this.surName = surName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    //Getters
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMotherLanguage(String motherLanguage) {
-        this.motherLanguage = motherLanguage;
+    public String getEmail() {
+        return email;
     }
 
-    //To String
-    @Override
+    public int getDatabaseID() {
+        return databaseID;
+    }
+
     public String toString(){
-        String formatter = "";
-        formatter = "Nombre: " + firstName + "\n";
-        formatter += "Primer Apellido: " + surName + "\n";
-        formatter += "Segundo Apellido: " + lastName + "\n";
-        return formatter;
+        StringBuilder builder = new StringBuilder();
+        builder.append("Nombre").append(" ").append(firstName).append("\n");
+        builder.append("Correo Eletrónico").append(" ").append(email).append("\n");
+        builder.append("Clave de Seguridad").append(" ").append(password).append("\n");
+        if(databaseID != 0) {
+            builder.append("ID en la Base de Datos").append(" ").append(databaseID).append("\n");
+        }
+        return builder.toString();
     }
 }

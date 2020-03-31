@@ -1,0 +1,5 @@
+public String toString(){
+    StringBuilder builder = new StringBuilder();
+    builder.append("PropertyName").append(" ").append("AttributeValue").append("\n");
+    return builder.toString();
+}

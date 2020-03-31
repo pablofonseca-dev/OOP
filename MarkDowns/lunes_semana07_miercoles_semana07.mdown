@@ -1,0 +1,74 @@
+
+# Lunes 02 de Marzo y Miércoles 04 de Marzo 
+## Herencia 
+
+Herencia se representa en UML por medio de una flecha no rellena apuntando a una clase y las otras clases debajo. 
+
+Es la capacidad que tiene un objeto de pasarle características y comportamientos a otro objeto.
+
+La herencia debe tener sentido conceptual. 
+
+Si yo tengo la clase persona y tengo la clase persona física y la clase persona jurídica. Estas dos últimas son clases hijas, la otra se conoce como clase padre. 
+
+Eso significa que si la persona tiene un atributo nombre y persona física hereda de persona, él también tendrá el atributo nombre sin que yo tenga que hacer esto. 
+
+Si persona tiene un getNombre la clase hija también tendrá un getNombre y no necesita declararse. 
+
+La herencia va de abajo hacia arriba y no funciona de arriba hacia abajo, apesar de que conceptualmente va de arriba hacia abajo. 
+
+Los atributos pueden ser heredados del padre al hijo pero del hijo al padre no se puede. 
+
+En JAVA existe una jerarquía de herencia ya establecida. 
+
+En JAVA todas las clases heredan de la clase *Object.* 
+
+La clase padre de todas las clases en java es *Object.* 
+
+Por eso es que cuando uno programa se da cuenta que muchas veces aparece la palabra reservada *@Overrride.* 
+
+La característica que se denomina polimorfísmo se lee de abajo hacia arriba. Por ejemplo, una persona física puede ser una persona, pero una persona no puede 
+tener los valores adicionales que son propios de una clase hija. 
+
+Una clase es polimorfica una vez que se crea una relación de generalización. 
+
+Object tiene ciertas características internas que a la hora de ejecutar el software en tiempo de ejecución todas las clases creadas heredan de la misma automáticamente, sin 
+necesidad de estar definido. 
+
+El objeto toString que está en la clase object le permite a los objetos retornar un String. Como la implementación básica de ese método en Object es retornar 
+la posición de memoria de un objeto instanciado, se debe sobreescribir el dato. Como clase hija se puede sobreescribir N métodos de la clase padre. Es lo que se denomina 
+@Override.
+
+Todas las clases hijas por ende pueden tener su propia definición del método *toString();*
+
+El enlazado dinámico hace posible que a la hora de realizar polimorfismo dichos objetos puedan comportarse como sus padres. La JVM se encarga de descartar todos aquellos datos que 
+no tiene la súper clase. Y de asignar el atributo correspondiente del tipo de clase a ese objeto instanciado, en un caso de utilizar el método toString implementaría el toString 
+del padre, no del hijo. 
+
+
+
+El equals es un método que lo brinda la clase object. Es un método que puede sobreescribirse (igual que el toString();)
+
+El equals lo que hace es comparar un objeto con otro. 
+
+Como el equals no está definido en nuestras clases el equals utilizará el equals del object. Object tiene su propia lógica para definir cuando dos objetos son iguales. 
+
+Object sabe que dos objetos son iguales si apuntan a la misma posición de memoria. 
+
+La única manera de que dos objetos sean iguales para object es que se igualen ambos. Por ejemplo: A = B, solo de esta manera ambos objetos son iguales para Object, ya que
+ambos apuntan a la misma posición de memoria. 
+
+Cuando tomo un entero y le asigno 1/2 su valor sera 0, esto es una conversion implicita. 
+
+Cuando tomo un objeto y es de tipo Object, y se quiere hacer un equals, se debe convertir ese objeto de tipo Object en el tipo de la clase que se desea comparar, esto es 
+una conversion explicita.
+
+```java
+public boolean equals(Object o){
+	Persona temporalPerson;
+	temporalPerson = (Persona) o;
+	... -> El lunes se concluye la explicacion del equals. 
+}
+```
+
+
+
