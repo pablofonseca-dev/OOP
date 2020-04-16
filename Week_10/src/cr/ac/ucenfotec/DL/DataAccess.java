@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Esta classe es la responsable de almacenar la información en archivos de texto.
+ * Esta clase es la responsable de almacenar la información en archivos de texto.
  * Va a tener todos métodos para manipular los archivos de texto.
  */
 public class DataAccess {

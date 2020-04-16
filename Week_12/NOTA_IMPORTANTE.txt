@@ -1,0 +1,5 @@
+EL archivo Biblioteca_UI_Fonseca_M_Pablo.rar es el proyecto completo, 
+tiene el JAR de la capa lógica agregado. 
+
+El archivo Biblioteca_Fuentes_Fonseca_M_Pablo.rar es el proyecto sin la UI, 
+solo tiene el código de la capa lógica. 
